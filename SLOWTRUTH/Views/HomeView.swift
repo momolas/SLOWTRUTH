@@ -1,6 +1,6 @@
 //
 //  HomeView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 9/30/23.
 //
@@ -76,7 +76,7 @@ struct HomeView: View {
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 HStack {
-                    Text("Powered by SMARTOBD2")
+                    Text("Powered by SLOWTRUTH")
                         .font(.caption)
                         .foregroundColor(.white)
                         .padding(5)
