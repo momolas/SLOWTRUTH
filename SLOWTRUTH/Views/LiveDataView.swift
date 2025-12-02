@@ -1,6 +1,6 @@
 //
 //  LiveDataView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 9/30/23.
 //
@@ -174,8 +174,8 @@ struct LiveDataView: View {
 
     func updateDataItems(measurements: [OBDCommand: MeasurementResult]) {
         for (pid, measurement) in measurements {
-            if let pid = viewModel.pidData.first(where: { $0.command == pid }) {
-                pid.update(measurement.value)
+            if let dataItem = viewModel.pidData.first(where: { $0.command == pid }) {
+                dataItem.update(measurement.value)
             }
         }
     }

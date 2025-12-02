@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/13/23.
 //

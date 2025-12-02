@@ -1,6 +1,6 @@
 //
 //  GarageView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/2/23.
 //
@@ -43,6 +43,10 @@ struct GarageView: View {
                                 .foregroundColor(.white)
                                 .font(.system(size: 20))
                         }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        garage.currentVehicle = vehicle
                     }
                     .listRowBackground(garage.currentVehicle?.id == vehicle.id ? Color.blue : Color.clear)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {

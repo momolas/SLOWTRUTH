@@ -1,6 +1,6 @@
 //
 //  AboutView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/1/23.
 //
@@ -13,14 +13,14 @@ struct AboutView: View {
 
     var body: some View {
         VStack(spacing: 100) {
-            Text("SMARTOBD2 Version 1.0")
+            Text("SLOWTRUTH Version 1.0")
             .font(.system(size: 18, weight: .bold))
             .foregroundColor(.white)
             .padding(.bottom, 10)
             VStack {
                 Text(
                      """
-                        SMARTOBD2 lets you monitor your car's health and
+                        SLOWTRUTH lets you monitor your car's health and
                         performance in real-time. It also lets you diagnose
                         your car's problems and provides you with a
                         solution to fix them.

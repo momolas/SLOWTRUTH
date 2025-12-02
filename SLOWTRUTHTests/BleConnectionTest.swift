@@ -1,12 +1,12 @@
 //
 //  BleConnectionTest.swift
-//  SMARTOBD2Tests
+//  SLOWTRUTHTests
 //
 //  Created by kemo konteh on 10/18/23.
 //
 
 import XCTest
-@testable import SMARTOBD2
+@testable import SLOWTRUTH
 
 final class BleConnectionTest: XCTestCase {
     var mockCentralManager: CBCentralManagerMock!
