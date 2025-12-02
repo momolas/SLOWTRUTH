@@ -1,4 +1,4 @@
-# OBD2 Swift App
+# SLOWTRUTH
 
 Welcome to the OBD2 Swift App! This app will allow you to read error codes and view Parameter IDs (PIDs) from your vehicle's OBD2 system using Swift and CoreBluetooth.
 
