@@ -13,30 +13,47 @@ struct MainView: View {
     @State var displayType: BottomSheetType = .quarterScreen
     @State var statusMessage: String?
     @State var isDemoMode = false
+    @State private var showConnectionSheet = false
 
     var body: some View {
-        GeometryReader { proxy in
-            CustomTabBarContainerView(
-                  selection: $tabSelection,
-                  maxHeight: proxy.size.height,
-                  displayType: $displayType,
-                  statusMessage: $statusMessage
-            ) {
-                NavigationView {
+        TabView(selection: $tabSelection) {
+            NavigationView {
+                ZStack(alignment: .bottom) {
                     HomeView(displayType: $displayType, isDemoMode: $isDemoMode, statusMessage: $statusMessage)
-                }
-                .navigationViewStyle(.stack)
-                .tabBarItem(tab: .dashBoard, selection: $tabSelection)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button(action: {
+                                    showConnectionSheet.toggle()
+                                }) {
+                                    Image(systemName: "car.circle")
+                                }
+                            }
+                        }
 
-                NavigationView {
-                    LiveDataView(displayType: $displayType,
-                        statusMessage: $statusMessage,
-                        isDemoMode: $isDemoMode
-                    )
+                    if showConnectionSheet {
+                        ConnectionStatusView(statusMessage: $statusMessage)
+                            .padding()
+                            .transition(.move(edge: .bottom))
+                    }
                 }
-                .navigationViewStyle(.stack)
-                .tabBarItem(tab: .features, selection: $tabSelection)
             }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("Dashboard", systemImage: "gauge.open.with.lines.needle.33percent")
+            }
+            .tag(TabBarItem.dashBoard)
+
+            NavigationView {
+                LiveDataView(displayType: $displayType,
+                    statusMessage: $statusMessage,
+                    isDemoMode: $isDemoMode
+                )
+            }
+            .navigationViewStyle(.stack)
+            .tabItem {
+                Label("Features", systemImage: "person")
+            }
+            .tag(TabBarItem.features)
         }
     }
 }
