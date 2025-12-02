@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/13/23.
 //
@@ -27,7 +27,6 @@ struct SettingsView: View {
 
     @EnvironmentObject var obdService: OBDService
     @Environment(\.dismiss) var dismiss
-    @Binding var displayType: BottomSheetType
 
     @Binding var isDemoMode: Bool
 
@@ -54,7 +53,6 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        displayType = .quarterScreen
                         dismiss()
                     } label: {
                         Label("Back", systemImage: "chevron.backward")
@@ -63,7 +61,6 @@ struct SettingsView: View {
             }
             .gesture(DragGesture().onEnded({
                 if $0.translation.width > 100 {
-                    displayType = .quarterScreen
                     dismiss()
                 }
             }))
@@ -149,6 +146,6 @@ struct RoundedRectangleStyle: ViewModifier {
 }
 
 #Preview {
-    SettingsView(displayType: .constant(.fullScreen), isDemoMode: .constant(true))
+    SettingsView(isDemoMode: .constant(true))
         .environmentObject(GlobalSettings())
 }

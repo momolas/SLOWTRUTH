@@ -1,6 +1,6 @@
 //
 //  GarageView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/2/23.
 //
@@ -13,7 +13,6 @@ struct GarageView: View {
     @EnvironmentObject var garage: Garage
 
     @Environment(\.dismiss) var dismiss
-    @Binding var displayType: BottomSheetType
     @Binding var isDemoMode: Bool
 
     @State private var isAddingVehicle = false
@@ -21,46 +20,26 @@ struct GarageView: View {
     var body: some View {
         ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
-            VStack {
-                List(garage.garageVehicles, id: \.self, selection: $garage.currentVehicle) { vehicle in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(vehicle.make)
-                                .font(.system(size: 20, weight: .bold, design: .default))
-                                .foregroundColor(.white)
-
-                            Text(vehicle.model)
-                                .font(.system(size: 14, weight: .bold, design: .default))
-                                .foregroundColor(.white)
-
-                            Text(vehicle.year)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                        if garage.currentVehicle?.id == vehicle.id {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
-                    }
-                    .listRowBackground(garage.currentVehicle?.id == vehicle.id ? Color.blue : Color.clear)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button("Delete", role: .destructive) {
-                            garage.deleteVehicle(vehicle)
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    if garage.garageVehicles.isEmpty {
+                        emptyState
+                    } else {
+                        ForEach(garage.garageVehicles, id: \.self) { vehicle in
+                            NavigationLink(destination: VehicleDetailView(vehicle: vehicle)) {
+                                VehicleCard(vehicle: vehicle, isSelected: garage.currentVehicle?.id == vehicle.id)
+                            }
                         }
                     }
                 }
-                .padding(.top, 25)
-                .listStyle(.inset)
-                .scrollContentBackground(.hidden)
+                .padding()
             }
         }
+        .navigationTitle("Garage")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    displayType = .quarterScreen
                     dismiss()
                 } label: {
                     HStack {
@@ -71,84 +50,95 @@ struct GarageView: View {
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Add Vehicle", role: .none) {
+                Button {
                     isAddingVehicle = true
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 24))
                 }
-                .buttonStyle(.bordered)
-                .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
             }
         }
-        .gesture(DragGesture().onEnded({
-            if $0.translation.width > 100 {
-                displayType = .quarterScreen
-                dismiss()
-            }
-        }))
         .sheet(isPresented: $isAddingVehicle) {
             AddVehicleView(isPresented: $isAddingVehicle)
         }
     }
+
+    var emptyState: some View {
+        VStack(spacing: 20) {
+            Image(systemName: "car.2.fill")
+                .font(.system(size: 60))
+                .foregroundColor(.gray)
+                .padding(.top, 50)
+
+            Text("No Vehicles in Garage")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+
+            Text("Add your vehicle to start monitoring its health.")
+                .font(.body)
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+
+            Button("Add Vehicle") {
+                isAddingVehicle = true
+            }
+            .buttonStyle(.borderedProminent)
+        }
+    }
+}
+
+struct VehicleCard: View {
+    let vehicle: Vehicle
+    let isSelected: Bool
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(vehicle.make)
+                    .font(.headline)
+                    .foregroundColor(.white.opacity(0.8))
+
+                Text(vehicle.model)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+
+                Text(vehicle.year)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+
+            Spacer()
+
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.title)
+                    .foregroundColor(.green)
+            } else {
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.ultraThinMaterial)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(isSelected ? Color.green : Color.clear, lineWidth: 2)
+                )
+        )
+        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 3)
+    }
 }
 
 #Preview {
-    NavigationView {
-        GarageView(displayType: .constant(.quarterScreen),
-                   isDemoMode: .constant(false))
+    NavigationStack {
+        GarageView(isDemoMode: .constant(false))
         .background(LinearGradient(.darkStart, .darkEnd))
         .environmentObject(GlobalSettings())
         .environmentObject(Garage())
     }
 }
-
-// class MockGarage: ObservableObject, GarageProtocol {
-//    @Published var garageVehicles: [Vehicle]
-//    @Published var currentVehicleId: Int? {
-//        didSet {
-//            if let currentVehicleId = currentVehicleId {
-//                UserDefaults.standard.set(currentVehicleId, forKey: "currentCarId")
-//            }
-//        }
-//    }
-//
-//    var currentVehicleIdPublisher: Published<Int?>.Publisher { $currentVehicleId }
-//
-//    @Published var currentVehicle: Vehicle?
-//
-//    init() {
-//        self.garageVehicles = [Vehicle(id: 1,
-//                                       make: "Toyota",
-//                                       model: "Camry",
-//                                       year: "2019",
-//                                       obdinfo: OBDInfo(vin: "",
-//                                                        supportedPIDs: [OBDCommand.mode1(.speed),
-//                                                                        OBDCommand.mode1(.coolantTemp),
-//                                                                        OBDCommand.mode1(.fuelPressure),
-//                                                                        OBDCommand.mode1(.fuelLevel),
-//                                                                        OBDCommand.mode1(.barometricPressure),
-//                                                                        OBDCommand.mode1(.fuelType),
-//                                                                        OBDCommand.mode1(.ambientAirTemp),
-//                                                                        OBDCommand.mode1(.engineOilTemp),
-//                                                                        OBDCommand.mode1(.engineLoad),
-//                                                                        ],
-//                                                        obdProtocol: .NONE,
-//                                                        ecuMap: [:])
-//                                      ),
-//                               Vehicle(id: 2,
-//                                         make: "Nissan",
-//                                         model: "Altima",
-//                                         year: "2019")
-//        ]
-//        self.currentVehicleId = currentVehicleId
-//        self.currentVehicle = garageVehicles[0]
-//    }
-//
-//    func setCurrentVehicle(by id: Int) {
-//        self.currentVehicleId = id
-//        self.currentVehicle = garageVehicles.first(where: { $0.id == id })
-//        print("setting")
-//    }
-//
-//    func deleteVehicle(_ car: Vehicle) {
-//        print("Deleting \(car)")
-//    }
-// }
