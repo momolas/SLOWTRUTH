@@ -104,7 +104,7 @@ struct TestingScreen: View {
                         TestMessageView(message: history)
                     }
                 }
-                .onChange(of: viewModel.lastMessageID) { id in
+                .onChange(of: viewModel.lastMessageID) { _, id in
                     withAnimation {
                         proxy.scrollTo(id, anchor: .bottom)
                     }

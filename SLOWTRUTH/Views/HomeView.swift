@@ -35,15 +35,6 @@ struct HomeView: View {
                                 displayType = .none
                             }
                         })
-                        .disabled(true)
-                        .opacity(0.5)
-                        .overlay(Text("Coming Soon")
-                            .font(.caption)
-                            .foregroundColor(.white)
-                            .padding(5)
-                            .background(Color.black.opacity(0.5))
-                            .cornerRadius(5)
-                            .padding(5), alignment: .topTrailing)
                     }
                     .padding(20)
                     .padding(.bottom, 20)

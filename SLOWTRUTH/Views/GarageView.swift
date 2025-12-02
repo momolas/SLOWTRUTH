@@ -44,6 +44,10 @@ struct GarageView: View {
                                 .font(.system(size: 20))
                         }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        garage.currentVehicle = vehicle
+                    }
                     .listRowBackground(garage.currentVehicle?.id == vehicle.id ? Color.blue : Color.clear)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button("Delete", role: .destructive) {
