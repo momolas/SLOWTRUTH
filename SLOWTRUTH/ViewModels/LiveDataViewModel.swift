@@ -90,9 +90,6 @@ class LiveDataViewModel: ObservableObject {
     private let measurementTimeLimit: TimeInterval = 120
 
     init() {
-
-        UserDefaults.standard.removeObject(forKey: "pidData")
-
         if let piddata = UserDefaults.standard.data(forKey: "pidData"),
            let pidData = try? JSONDecoder().decode([DataItem].self, from: piddata) {
             self.pidData = pidData

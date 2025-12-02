@@ -9,21 +9,27 @@ https://github.com/kkonteh97/SmartOBD2/assets/55326260/40b862b7-44c1-44ae-b402-c
 1. Clone this repository to your local machine.
 2. Navigate to project directory on the terminal
 ```
-cd SwiftOBD2App
+cd SmartOBD2
 ```
-3. Run command xcodegen
-```
-xcodegen
-```
-4. Open the Xcode project file (`SwiftOBD2App.xcodeproj`).
-5. Build and run the app on a compatible iOS device.
+3. Open the Xcode project file.
+4. Build and run the app on a compatible iOS device.
+
+## Testing
+
+To run the unit tests:
+
+1. Open the Test navigator in Xcode.
+2. Select the `SMARTOBD2Tests` target.
+3. Run the tests (Cmd+U).
 
 ## MileStones
 
 - Connect to an OBD2 adapter via Bluetooth Low Energy (BLE) (completed)
 - Retrieve error codes (DTCs) stored in the vehicle's OBD2 system (completed)
 - View various OBD2 Parameter IDs (PIDs) for monitoring vehicle parameters (completed)
-- Clean and intuitive user interface (in progress...)
+- Vehicle Garage Management (completed)
+- Logs View (completed)
+- Clean and intuitive user interface (completed)
 
 ## Current Requirements
 
