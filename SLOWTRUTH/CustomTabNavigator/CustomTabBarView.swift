@@ -76,10 +76,11 @@ struct CustomTabBarView<Content: View>: View {
                     VStack(spacing: 35) {
                         tabBar
                             .frame(maxHeight: maxHeight * 0.1)
-                            .onChange(of: selection, perform: { value in
+                            .onChange(of: selection) { _, value in
                                 withAnimation(.easeInOut) {
                                     localSelection = value
-                                }})
+                                }
+                            }
 
                         carInfoView
                             .padding(.horizontal)
@@ -138,12 +139,12 @@ struct CustomTabBarView<Content: View>: View {
 
     // Blur Radius for BG...
     func getOpacityRadius() -> CGFloat {
-        let progress = (offset + gestureOffset) / ((UIScreen.main.bounds.height) * 0.50)
+        let progress = (offset + gestureOffset) / ((UIScreen.current?.bounds.height ?? 0) * 0.50)
         return progress
     }
 
     func getBlurRadius() -> CGFloat {
-        let progress = 1 - (offset + gestureOffset) / (UIScreen.main.bounds.height * 0.50)
+        let progress = 1 - (offset + gestureOffset) / ((UIScreen.current?.bounds.height ?? 0) * 0.50)
 
         return progress * 30
     }
@@ -321,11 +322,7 @@ extension CustomTabBarView {
                     if let statusMessage =  statusMessage {
                         Text(statusMessage)
                     } else {
-                        Text(garage.currentVehicle?.year ?? "")
-                        + Text(" ")
-                        + Text(garage.currentVehicle?.make ?? "")
-                        + Text(" ")
-                        + Text(garage.currentVehicle?.model ?? "")
+                        Text("\(garage.currentVehicle?.year ?? "") \(garage.currentVehicle?.make ?? "") \(garage.currentVehicle?.model ?? "")")
                     }
                 }
                 .font(.system(size: 22, weight: .bold, design: .rounded))
