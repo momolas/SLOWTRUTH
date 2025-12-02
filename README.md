@@ -1,4 +1,4 @@
-# OBD2 Swift App
+# SLOWTRUTH
 
 Welcome to the OBD2 Swift App! This app will allow you to read error codes and view Parameter IDs (PIDs) from your vehicle's OBD2 system using Swift and CoreBluetooth.
 
@@ -9,7 +9,7 @@ https://github.com/kkonteh97/SmartOBD2/assets/55326260/40b862b7-44c1-44ae-b402-c
 1. Clone this repository to your local machine.
 2. Navigate to project directory on the terminal
 ```
-cd SmartOBD2
+cd SLOWTRUTH
 ```
 3. Open the Xcode project file.
 4. Build and run the app on a compatible iOS device.
@@ -19,7 +19,7 @@ cd SmartOBD2
 To run the unit tests:
 
 1. Open the Test navigator in Xcode.
-2. Select the `SMARTOBD2Tests` target.
+2. Select the `SLOWTRUTHTests` target.
 3. Run the tests (Cmd+U).
 
 ## MileStones
