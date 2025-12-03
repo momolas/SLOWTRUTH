@@ -11,7 +11,7 @@ import SwiftOBD2
 
 extension Logger {
     /// Using your bundle identifier is a great way to ensure a unique identifier.
-    private static var subsystem = Bundle.main.bundleIdentifier!
+    private static var subsystem = Bundle.main.bundleIdentifier ?? "com.SLOWTRUTH.SLOWTRUTH"
 
     /// Logs the view cycles like a view that appeared.
     static let elmCom = Logger(subsystem: subsystem, category: "ELM327")
@@ -21,7 +21,6 @@ extension Logger {
 }
 
 class GlobalSettings: NSObject, ObservableObject {
-    @Published var displayType: BottomSheetType = .quarterScreen
     @Published var statusMessage = ""
     @Published var showAltText = false
     @Published var connectionType: ConnectionType = .bluetooth {
@@ -47,7 +46,7 @@ class GlobalSettings: NSObject, ObservableObject {
 }
 
 @main
-struct SMARTOBD2App: App {
+struct SLOWTRUTHApp: App {
     @StateObject var globalSettings = GlobalSettings()
     @StateObject var obdService = OBDService(connectionType: .bluetooth)
     @StateObject var garage = Garage()

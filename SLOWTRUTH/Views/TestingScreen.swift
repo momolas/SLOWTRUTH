@@ -29,7 +29,6 @@ struct TestingScreen: View {
 
     @EnvironmentObject var globalSettings: GlobalSettings
     @Environment(\.dismiss) var dismiss
-    @Binding var displayType: BottomSheetType
 
     @EnvironmentObject var garage: Garage
     @EnvironmentObject var obdService: OBDService
@@ -57,7 +56,6 @@ struct TestingScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    displayType = .quarterScreen
                     dismiss()
                 } label: {
                     Label("Back", systemImage: "chevron.backward")
@@ -104,7 +102,7 @@ struct TestingScreen: View {
                         TestMessageView(message: history)
                     }
                 }
-                .onChange(of: viewModel.lastMessageID) { id in
+                .onChange(of: viewModel.lastMessageID) { _, id in
                     withAnimation {
                         proxy.scrollTo(id, anchor: .bottom)
                     }
@@ -455,7 +453,7 @@ struct TestMessageView: View {
 // }
 
 #Preview {
-        TestingScreen(viewModel: TestingScreenViewModel(), displayType: .constant(.quarterScreen))
+    TestingScreen()
         .environmentObject(GlobalSettings())
         .environmentObject(OBDService())
         .environmentObject(Garage())
