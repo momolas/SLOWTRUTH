@@ -54,7 +54,6 @@ struct AboutView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    globalSettings.displayType = .quarterScreen
                     dismiss()
                 } label: {
                     HStack {

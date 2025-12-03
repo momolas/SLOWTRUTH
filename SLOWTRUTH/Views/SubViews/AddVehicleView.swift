@@ -42,7 +42,7 @@ struct AddVehicleView: View {
     @Binding var isPresented: Bool
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundView(isDemoMode: .constant(false))
                 VStack {

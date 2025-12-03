@@ -21,7 +21,6 @@ extension Logger {
 }
 
 class GlobalSettings: NSObject, ObservableObject {
-    @Published var displayType: BottomSheetType = .quarterScreen
     @Published var statusMessage = ""
     @Published var showAltText = false
     @Published var connectionType: ConnectionType = .bluetooth {

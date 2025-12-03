@@ -10,7 +10,6 @@ import SwiftOBD2
 
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Binding var displayType: BottomSheetType
     @Binding var isDemoMode: Bool
     @Binding var statusMessage: String?
 
@@ -23,55 +22,33 @@ struct HomeView: View {
                         SectionView(title: "Diagnostics",
                                     subtitle: "Read Vehicle Health",
                                     iconName: "wrench.and.screwdriver",
-                                    destination: VehicleDiagnosticsView(displayType: $displayType, isDemoMode: $isDemoMode)
+                                    destination: VehicleDiagnosticsView(isDemoMode: $isDemoMode)
                         )
 
                         SectionView(title: "Logs",
                                     subtitle: "View Logs",
                                     iconName: "flowchart",
                                     destination: LogsView())
-                        .simultaneousGesture(TapGesture().onEnded {
-                            withAnimation {
-                                displayType = .none
-                            }
-                        })
                     }
                     .padding(20)
                     .padding(.bottom, 20)
 
                     Divider().background(Color.white).padding(.horizontal, 10)
-                    NavigationLink(destination: GarageView(displayType: $displayType,
-                                                           isDemoMode: $isDemoMode)) {
+                    NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
                         SettingsAboutSectionView(title: "Garage", iconName: "car.circle", iconColor: .blue.opacity(0.6))
                     }
-                                                           .simultaneousGesture(TapGesture().onEnded {
-                                                               withAnimation {
-                                                                   displayType = .none
-                                                               }
-                                                           })
 
                     NavigationLink {
-                        SettingsView(displayType: $displayType, 
-                                     isDemoMode: $isDemoMode)
+                        SettingsView(isDemoMode: $isDemoMode)
                     } label: {
                         SettingsAboutSectionView(title: "Settings", iconName: "gear", iconColor: .green.opacity(0.6))
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        withAnimation {
-                            displayType = .none
-                        }
-                    })
 
                     NavigationLink {
-                        TestingScreen(displayType: $displayType)
+                        TestingScreen()
                     } label: {
                         SettingsAboutSectionView(title: "Testing Hub", iconName: "gear", iconColor: .green.opacity(0.6))
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        withAnimation {
-                            displayType = .none
-                        }
-                    })
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -114,7 +91,7 @@ struct SettingsAboutSectionView: View {
 }
 
 #Preview {
-    NavigationView {
-        HomeView(displayType: .constant(.quarterScreen), isDemoMode: .constant(true), statusMessage: .constant(nil))
-    }.navigationViewStyle(.stack)
+    NavigationStack {
+        HomeView(isDemoMode: .constant(true), statusMessage: .constant(nil))
+    }
 }

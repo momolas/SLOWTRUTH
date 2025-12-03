@@ -13,7 +13,6 @@ struct GarageView: View {
     @EnvironmentObject var garage: Garage
 
     @Environment(\.dismiss) var dismiss
-    @Binding var displayType: BottomSheetType
     @Binding var isDemoMode: Bool
 
     @State private var isAddingVehicle = false
@@ -41,7 +40,6 @@ struct GarageView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    displayType = .quarterScreen
                     dismiss()
                 } label: {
                     HStack {
@@ -137,9 +135,8 @@ struct VehicleCard: View {
 }
 
 #Preview {
-    NavigationView {
-        GarageView(displayType: .constant(.quarterScreen),
-                   isDemoMode: .constant(false))
+    NavigationStack {
+        GarageView(isDemoMode: .constant(false))
         .background(LinearGradient(.darkStart, .darkEnd))
         .environmentObject(GlobalSettings())
         .environmentObject(Garage())

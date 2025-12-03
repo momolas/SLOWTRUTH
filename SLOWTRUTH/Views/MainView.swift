@@ -10,46 +10,39 @@ import SwiftOBD2
 
 struct MainView: View {
     @State private var tabSelection: TabBarItem = .dashBoard
-    @State var displayType: BottomSheetType = .quarterScreen
     @State var statusMessage: String?
     @State var isDemoMode = false
     @State private var showConnectionSheet = false
 
     var body: some View {
         TabView(selection: $tabSelection) {
-            NavigationView {
-                ZStack(alignment: .bottom) {
-                    HomeView(displayType: $displayType, isDemoMode: $isDemoMode, statusMessage: $statusMessage)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button(action: {
-                                    showConnectionSheet.toggle()
-                                }) {
-                                    Image(systemName: "car.circle")
-                                }
+            NavigationStack {
+                HomeView(isDemoMode: $isDemoMode, statusMessage: $statusMessage)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                showConnectionSheet.toggle()
+                            }) {
+                                Image(systemName: "car.circle")
                             }
                         }
-
-                    if showConnectionSheet {
-                        ConnectionStatusView(statusMessage: $statusMessage)
-                            .padding()
-                            .transition(.move(edge: .bottom))
                     }
-                }
+                    .sheet(isPresented: $showConnectionSheet) {
+                        ConnectionStatusView(statusMessage: $statusMessage)
+                            .presentationDetents([.fraction(0.4), .medium])
+                            .presentationDragIndicator(.visible)
+                    }
             }
-            .navigationViewStyle(.stack)
             .tabItem {
                 Label("Dashboard", systemImage: "gauge.open.with.lines.needle.33percent")
             }
             .tag(TabBarItem.dashBoard)
 
-            NavigationView {
-                LiveDataView(displayType: $displayType,
-                    statusMessage: $statusMessage,
+            NavigationStack {
+                LiveDataView(statusMessage: $statusMessage,
                     isDemoMode: $isDemoMode
                 )
             }
-            .navigationViewStyle(.stack)
             .tabItem {
                 Label("Features", systemImage: "person")
             }

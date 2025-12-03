@@ -132,7 +132,6 @@ struct VehicleDiagnosticsView: View {
     @EnvironmentObject var obd2Service: OBDService
 
     @Environment(\.dismiss) var dismiss
-    @Binding var displayType: BottomSheetType
     @Binding var isDemoMode: Bool
     @State private var showAlert = false
     @State private var alertMessage = ""
@@ -336,7 +335,6 @@ struct VehicleDiagnosticsView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
                     withAnimation {
-                        displayType = .quarterScreen
                         dismiss()
                     }
                 } label: {
@@ -373,8 +371,8 @@ struct VehicleDiagnosticsView: View {
 }
 
 #Preview {
-    NavigationView {
-        VehicleDiagnosticsView(displayType: .constant(.quarterScreen), isDemoMode: .constant(false))
+    NavigationStack {
+        VehicleDiagnosticsView(isDemoMode: .constant(false))
             .environmentObject(GlobalSettings())
             .environmentObject(Garage())
     }

@@ -29,15 +29,12 @@ struct LiveDataView: View {
 
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 
-    @Binding var displayType: BottomSheetType
     @Binding var statusMessage: String?
     @Binding var isDemoMode: Bool
 
-    init(displayType: Binding<BottomSheetType>,
-         statusMessage: Binding<String?>,
+    init(statusMessage: Binding<String?>,
          isDemoMode: Binding<Bool>
     ) {
-        self._displayType = displayType
         self._statusMessage = statusMessage
         self._isDemoMode = isDemoMode
     }
@@ -130,7 +127,6 @@ struct LiveDataView: View {
     private func toggleRequestingPIDs() {
         guard obdService.connectionState == .connectedToVehicle else {
             statusMessage = "Not Connected"
-            toggleDisplayType(to: .halfScreen)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     statusMessage = nil
@@ -152,7 +148,6 @@ struct LiveDataView: View {
         }
 
         viewModel.isRequestingPids = true
-        toggleDisplayType(to: .none)
 
         UIApplication.shared.isIdleTimerDisabled = true
 
@@ -187,22 +182,11 @@ struct LiveDataView: View {
         UIApplication.shared.isIdleTimerDisabled = false
         viewModel.isRequestingPids = false
         viewModel.cancellables.removeAll()
-        toggleDisplayType(to: .quarterScreen)
-    }
-
-    private func toggleDisplayType(to displayType: BottomSheetType) {
-        withAnimation(.interactiveSpring(response: 0.5,
-                                         dampingFraction: 0.8,
-                                         blendDuration: 0)
-        ) {
-            globalSettings.displayType = displayType
-        }
     }
 }
 
 #Preview {
-    LiveDataView(displayType: .constant(.quarterScreen),
-                 statusMessage: .constant(""),
+    LiveDataView(statusMessage: .constant(""),
                  isDemoMode: .constant(false))
     .environmentObject(GlobalSettings())
     .environmentObject(OBDService())
