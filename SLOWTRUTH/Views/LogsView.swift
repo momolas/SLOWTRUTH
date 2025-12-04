@@ -1,6 +1,6 @@
 //
 //  LogsView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 2/28/24.
 //

@@ -1,6 +1,6 @@
 //
-//  SMARTOBD2Tests.swift
-//  SMARTOBD2Tests
+//  SLOWTRUTHTests.swift
+//  SLOWTRUTHTests
 //
 //  Created by kemo konteh on 10/18/23.
 //
@@ -10,7 +10,7 @@ import XCTest
 // Naming Structure: test_UnitOfWork_StateUnderTest_ExpectedBehavior
 // Testing Struture: Given, When, Then
 
-final class SMARTOBD2Tests: XCTestCase {
+final class SLOWTRUTHTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -1,12 +1,12 @@
 //
 //  BleCommTest.swift
-//  SMARTOBD2Tests
+//  SLOWTRUTHTests
 //
 //  Created by kemo konteh on 10/18/23.
 //
 
 import XCTest
-@testable import SMARTOBD2
+@testable import SLOWTRUTH
 import Combine
 
 // Naming Structure: test_UnitOfWork_StateUnderTest_ExpectedBehavior

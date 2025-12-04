@@ -1,6 +1,6 @@
 //
 //  AddVehicleView.swift
-//  SMARTOBD2
+//  SLOWTRUTH
 //
 //  Created by kemo konteh on 10/10/23.
 //
@@ -42,7 +42,7 @@ struct AddVehicleView: View {
     @Binding var isPresented: Bool
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundView(isDemoMode: .constant(false))
                 VStack {
