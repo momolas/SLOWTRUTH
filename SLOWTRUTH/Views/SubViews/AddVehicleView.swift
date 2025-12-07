@@ -298,7 +298,7 @@ struct ConfirmView: View {
 
 #Preview {
     AddVehicleView(isPresented: .constant(true))
-            .environmentObject(GlobalSettings())
+            .environment(GlobalSettings())
             .environmentObject(Garage())
 
 }
