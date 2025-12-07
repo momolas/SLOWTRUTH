@@ -26,18 +26,17 @@ struct VehicleDetailView: View {
                     VStack(spacing: 10) {
                         Image(systemName: "car.circle.fill")
                             .font(.system(size: 80))
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                             .shadow(radius: 5)
 
                         Text("\(vehicle.year) \(vehicle.make) \(vehicle.model)")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(20)
+                    .background(.ultraThinMaterial, in: .rect(cornerRadius: 20))
                     .padding(.horizontal)
 
                     // Actions
@@ -49,33 +48,30 @@ struct VehicleDetailView: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.green.opacity(0.8))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                                .background(Color.green.opacity(0.8), in: .rect(cornerRadius: 10))
+                                .foregroundStyle(.white)
                         }
                         .padding(.horizontal)
                     } else {
                         Label("Currently Selected", systemImage: "checkmark.circle.fill")
                             .font(.headline)
-                            .foregroundColor(.green)
+                            .foregroundStyle(.green)
                             .padding()
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(10)
+                            .background(.ultraThinMaterial, in: .rect(cornerRadius: 10))
                     }
 
                     // Details Section
                     VStack(alignment: .leading, spacing: 15) {
                         Text("Vehicle Details")
                             .font(.headline)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
 
                         DetailRow(title: "VIN", value: vehicle.obdinfo?.vin ?? "Unknown")
                         DetailRow(title: "Protocol", value: vehicle.obdinfo?.obdProtocol?.description ?? "Unknown")
                         DetailRow(title: "ID", value: String(vehicle.id))
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(15)
+                    .background(.ultraThinMaterial, in: .rect(cornerRadius: 15))
                     .padding(.horizontal)
 
                     Spacer()
@@ -85,7 +81,7 @@ struct VehicleDetailView: View {
                         dismiss()
                     }) {
                         Label("Delete Vehicle", systemImage: "trash")
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                     .padding()
                 }
@@ -104,11 +100,11 @@ struct DetailRow: View {
     var body: some View {
         HStack {
             Text(title)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundStyle(.white.opacity(0.8))
             Spacer()
             Text(value)
                 .fontWeight(.semibold)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
         }
         .padding(.vertical, 4)
         Divider()

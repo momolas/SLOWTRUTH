@@ -23,7 +23,7 @@ class SettingsViewModel: ObservableObject {
 }
 
 struct SettingsView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
+    @Environment(GlobalSettings.self) var globalSettings
 
     @EnvironmentObject var obdService: OBDService
     @Environment(\.dismiss) var dismiss
@@ -31,7 +31,8 @@ struct SettingsView: View {
     @Binding var isDemoMode: Bool
 
     var body: some View {
-        ZStack {
+        @Bindable var globalSettings = globalSettings
+        return ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
             VStack {
                 List {
@@ -68,7 +69,8 @@ struct SettingsView: View {
     }
 
     var displaySection: some View {
-        Section(header: Text("Display").font(.system(size: 20, weight: .bold, design: .rounded))) {
+        @Bindable var globalSettings = globalSettings
+        return Section(header: Text("Display").font(.system(size: 20, weight: .bold, design: .rounded))) {
             Picker("Units", selection: $globalSettings.selectedUnit) {
                 ForEach(MeasurementUnit.allCases, id: \.self) {
                     Text($0.rawValue)
@@ -147,5 +149,5 @@ struct RoundedRectangleStyle: ViewModifier {
 
 #Preview {
     SettingsView(isDemoMode: .constant(true))
-        .environmentObject(GlobalSettings())
+        .environment(GlobalSettings())
 }

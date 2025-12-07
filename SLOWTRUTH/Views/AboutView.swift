@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
