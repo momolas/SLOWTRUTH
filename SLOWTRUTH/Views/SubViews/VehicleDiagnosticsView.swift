@@ -127,7 +127,6 @@ struct DiagnosticsScreen: View {
 }
 
 struct VehicleDiagnosticsView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
     @EnvironmentObject var garage: Garage
     @EnvironmentObject var obd2Service: OBDService
 
@@ -373,7 +372,6 @@ struct VehicleDiagnosticsView: View {
 #Preview {
     NavigationStack {
         VehicleDiagnosticsView(isDemoMode: .constant(false))
-            .environmentObject(GlobalSettings())
             .environmentObject(Garage())
     }
 }
