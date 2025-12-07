@@ -23,7 +23,7 @@ class SettingsViewModel: ObservableObject {
 }
 
 struct SettingsView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
+    @Environment(GlobalSettings.self) var globalSettings
 
     @EnvironmentObject var obdService: OBDService
     @Environment(\.dismiss) var dismiss
@@ -31,7 +31,8 @@ struct SettingsView: View {
     @Binding var isDemoMode: Bool
 
     var body: some View {
-        ZStack {
+        @Bindable var globalSettings = globalSettings
+        return ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
             VStack {
                 List {
@@ -147,5 +148,5 @@ struct RoundedRectangleStyle: ViewModifier {
 
 #Preview {
     SettingsView(isDemoMode: .constant(true))
-        .environmentObject(GlobalSettings())
+        .environment(GlobalSettings())
 }
