@@ -24,7 +24,6 @@ struct LiveDataView: View {
 
     @Namespace var namespace
 
-    @EnvironmentObject var globalSettings: GlobalSettings
     @EnvironmentObject var obdService: OBDService
 
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
@@ -188,6 +187,5 @@ struct LiveDataView: View {
 #Preview {
     LiveDataView(statusMessage: .constant(""),
                  isDemoMode: .constant(false))
-    .environmentObject(GlobalSettings())
     .environmentObject(OBDService())
 }

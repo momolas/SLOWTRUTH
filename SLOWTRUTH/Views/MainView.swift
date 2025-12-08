@@ -12,48 +12,49 @@ struct MainView: View {
     @State private var tabSelection: TabBarItem = .dashBoard
     @State var statusMessage: String?
     @State var isDemoMode = false
-    @State private var showConnectionSheet = false
 
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationStack {
                 HomeView(isDemoMode: $isDemoMode, statusMessage: $statusMessage)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button(action: {
-                                showConnectionSheet.toggle()
-                            }) {
-                                Image(systemName: "car.circle")
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showConnectionSheet) {
-                        ConnectionStatusView(statusMessage: $statusMessage)
-                            .presentationDetents([.fraction(0.4), .medium])
-                            .presentationDragIndicator(.visible)
-                    }
+                    .toolbar(.hidden, for: .navigationBar)
             }
             .tabItem {
-                Label("Dashboard", systemImage: "gauge.open.with.lines.needle.33percent")
+                Label(TabBarItem.dashBoard.title, systemImage: TabBarItem.dashBoard.iconName)
             }
             .tag(TabBarItem.dashBoard)
 
             NavigationStack {
-                LiveDataView(statusMessage: $statusMessage,
-                    isDemoMode: $isDemoMode
-                )
+                VehicleDiagnosticsView(isDemoMode: $isDemoMode)
             }
             .tabItem {
-                Label("Features", systemImage: "person")
+                Label(TabBarItem.diagnostic.title, systemImage: TabBarItem.diagnostic.iconName)
             }
-            .tag(TabBarItem.features)
+            .tag(TabBarItem.diagnostic)
+
+            NavigationStack {
+                LogsView()
+            }
+            .tabItem {
+                Label(TabBarItem.history.title, systemImage: TabBarItem.history.iconName)
+            }
+            .tag(TabBarItem.history)
+
+            NavigationStack {
+                SettingsView(isDemoMode: $isDemoMode)
+            }
+            .tabItem {
+                Label(TabBarItem.settings.title, systemImage: TabBarItem.settings.iconName)
+            }
+            .tag(TabBarItem.settings)
         }
+        .tint(Color.blue)
     }
 }
 
 #Preview {
     MainView()
-        .environmentObject(GlobalSettings())
+        .environment(GlobalSettings())
         .environmentObject(Garage())
         .environmentObject(OBDService())
 }
