@@ -9,89 +9,71 @@ import SwiftUI
 import SwiftOBD2
 
 struct HomeView: View {
+    @EnvironmentObject var obdService: OBDService
     @Environment(\.colorScheme) var colorScheme
+
     @Binding var isDemoMode: Bool
     @Binding var statusMessage: String?
+
+    @State private var dashboardVM = DashboardViewModel()
+    @State private var showConnectionSheet = false
 
     var body: some View {
         ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        SectionView(title: "Diagnostics",
-                                    subtitle: "Read Vehicle Health",
-                                    iconName: "wrench.and.screwdriver",
-                                    destination: VehicleDiagnosticsView(isDemoMode: $isDemoMode)
+
+            VStack(spacing: 0) {
+                DashboardHeaderView {
+                    showConnectionSheet.toggle()
+                }
+
+                ScrollView {
+                    VStack(spacing: 20) {
+                        NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
+                            VehicleStatusCard()
+                        }
+                        .buttonStyle(.plain)
+
+                        MetricsGrid(
+                            fuelLevel: isDemoMode ? "80%" : dashboardVM.fuelLevel,
+                            batteryVoltage: isDemoMode ? "12.4 V" : dashboardVM.batteryVoltage
                         )
 
-                        SectionView(title: "Logs",
-                                    subtitle: "View Logs",
-                                    iconName: "flowchart",
-                                    destination: LogsView())
+                        AlertsSection()
+                        MaintenanceSection()
+                        LastDiagnosticCard()
                     }
-                    .padding(20)
-                    .padding(.bottom, 20)
-
-                    Divider().background(Color.white).padding(.horizontal, 10)
-                    NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
-                        SettingsAboutSectionView(title: "Garage", iconName: "car.circle", iconColor: .blue.opacity(0.6))
-                    }
-
-                    NavigationLink {
-                        SettingsView(isDemoMode: $isDemoMode)
-                    } label: {
-                        SettingsAboutSectionView(title: "Settings", iconName: "gear", iconColor: .green.opacity(0.6))
-                    }
-
-                    NavigationLink {
-                        TestingScreen()
-                    } label: {
-                        SettingsAboutSectionView(title: "Testing Hub", iconName: "gear", iconColor: .green.opacity(0.6))
-                    }
-                }
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                HStack {
-                    Text("Powered by SLOWTRUTH")
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(5)
+                    .padding()
                 }
             }
         }
-    }
-}
-
-struct SettingsAboutSectionView: View {
-    let title: String
-    let iconName: String
-    let iconColor: Color
-
-    var body: some View {
-        HStack {
-            Image(systemName: iconName)
-                .font(.system(size: 30, weight: .bold))
-                .foregroundColor(iconColor)
-
-            Text(title)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.white)
-
-            Spacer()
-
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .bold))
-                .foregroundColor(.white)
-
+        .sheet(isPresented: $showConnectionSheet) {
+            ConnectionStatusView(statusMessage: $statusMessage)
+                .presentationDetents([.fraction(0.4), .medium])
+                .presentationDragIndicator(.visible)
         }
-        .frame(maxWidth: .infinity, maxHeight: 400, alignment: .leading)
-        .padding(.horizontal, 22)
+        .onAppear {
+            dashboardVM.setup(obdService: obdService)
+        }
+        .task {
+            if !isDemoMode {
+                await dashboardVM.refreshData()
+            }
+        }
+        .onChange(of: obdService.connectionState) { _, newState in
+            if newState == .connected && !isDemoMode {
+                Task {
+                    await dashboardVM.refreshData()
+                }
+            }
+        }
     }
 }
 
 #Preview {
     NavigationStack {
         HomeView(isDemoMode: .constant(true), statusMessage: .constant(nil))
+            .environmentObject(OBDService())
+            .environmentObject(Garage())
     }
 }
