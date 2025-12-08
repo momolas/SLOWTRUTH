@@ -49,16 +49,17 @@ struct AddVehicleView: View {
                     List {
                         NavigationLink(destination: AutoAddVehicleView(isPresented: $isPresented)) {
                             Text("Auto-detect Vehicle")
+                                .foregroundStyle(.white)
                         }
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
 
                         NavigationLink(destination: ManuallyAddVehicleView(isPresented: $isPresented)) {
                             Text( "Manually Add Vehicle")
+                                .foregroundStyle(.white)
                         }
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
                     }
                     .scrollContentBackground(.hidden)
-
                 }
             }
             .navigationTitle("Add Vehicle")
@@ -83,14 +84,16 @@ struct AutoAddVehicleView: View {
             VStack(alignment: .center, spacing: 10) {
                 Text("Before you start")
                     .font(.title)
+                    .foregroundStyle(.white)
                 Text("Plug in the scanner to the OBD port\nTurn on your vehicles engine\nMake sure that Bluetooth is on")
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
+                    .foregroundStyle(.gray)
 
                 detectButton
             }
             .padding(30)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
+            .background(Color.dashboardCard, in: .rect(cornerRadius: 20))
             .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
             .padding(.bottom, 40)
         }
@@ -102,11 +105,12 @@ struct AutoAddVehicleView: View {
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.dashboardAccentGreen)
                 .padding(.bottom)
 
             if isLoading {
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .scaleEffect(2.0, anchor: .center)
             } else {
                 Button {
@@ -116,8 +120,10 @@ struct AutoAddVehicleView: View {
                 } label: {
                     Text("Detect Vehicle")
                         .padding(10)
+                        .foregroundStyle(.white)
                 }
                 .buttonStyle(.bordered)
+                .tint(Color.dashboardCard)
                 .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
             }
         }
@@ -187,9 +193,10 @@ struct ManuallyAddVehicleView: View {
                                                    manufacturer: manufacturer),
                             label: {
                                 Text(manufacturer.make)
+                                    .foregroundStyle(.white)
                             })
                     }
-                    .listRowBackground(Color.darkStart.opacity(0.3))
+                    .listRowBackground(Color.dashboardCard)
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(.inset)
@@ -219,15 +226,15 @@ struct ModelView: View {
                                               manufacturer: manufacturer),
                         label: {
                             Text(carModel.name)
+                                .foregroundStyle(.white)
                         })
                 }
-                .listRowBackground(Color.darkStart.opacity(0.3))
+                .listRowBackground(Color.dashboardCard)
             }
             .scrollContentBackground(.hidden)
             .listStyle(.inset)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .scrollContentBackground(.hidden)
     }
 }
 
@@ -250,9 +257,10 @@ struct YearView: View {
                         label: {
                             Text("\(year)")
                                 .font(.headline)
+                                .foregroundStyle(.white)
                         })
                 }
-                .listRowBackground(Color.darkStart.opacity(0.3))
+                .listRowBackground(Color.dashboardCard)
             }
             .scrollContentBackground(.hidden)
             .listStyle(.inset)
@@ -276,6 +284,7 @@ struct ConfirmView: View {
             VStack {
                 Text("\(year) \(manufacturer.make) \(carModel.name)")
                     .font(.title)
+                    .foregroundStyle(.white)
                     .padding()
                 Button {
                     garage.addVehicle(
@@ -288,8 +297,10 @@ struct ConfirmView: View {
                 } label: {
                     VStack {
                         Text("Add Vehicle")
+                            .foregroundStyle(.white)
                     }
                     .frame(width: 200, height: 50)
+                    .background(Color.dashboardCard, in: .rect(cornerRadius: 15))
                 }
             }
         }
@@ -298,33 +309,7 @@ struct ConfirmView: View {
 
 #Preview {
     AddVehicleView(isPresented: .constant(true))
-            .environmentObject(GlobalSettings())
+            .environment(GlobalSettings())
             .environmentObject(Garage())
 
-}
-
-struct BackgroundView: View {
-    @Binding var isDemoMode: Bool
-
-    var body: some View {
-            LinearGradient(Color.darkStart.opacity(0.8), .darkEnd.opacity(0.4))
-                .ignoresSafeArea()
-
-            if isDemoMode {
-                ZStack {
-                    Text("Demo Mode")
-                        .font(.system(size: 40, weight: .semibold)) // Reduced font size
-                        .foregroundColor(Color.charcoal.opacity(0.2))
-                        .offset(y: -5)
-                        .shadow(color: .black, radius: 5, x: 3, y: 3) // Softened shadow
-                        .rotationEffect(.degrees(-30))
-
-                    Text("Demo Mode")
-                        .font(.system(size: 40, weight: .semibold)) // Reduced font size
-                        .foregroundColor(Color.black.opacity(0.2))
-                        .offset(y: 2)
-                        .rotationEffect(.degrees(-30))
-                }
-            }
-    }
 }

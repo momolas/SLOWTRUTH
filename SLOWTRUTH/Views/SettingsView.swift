@@ -23,7 +23,7 @@ class SettingsViewModel: ObservableObject {
 }
 
 struct SettingsView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
+    @Environment(GlobalSettings.self) var globalSettings
 
     @EnvironmentObject var obdService: OBDService
     @Environment(\.dismiss) var dismiss
@@ -31,7 +31,8 @@ struct SettingsView: View {
     @Binding var isDemoMode: Bool
 
     var body: some View {
-        ZStack {
+        @Bindable var globalSettings = globalSettings
+        return ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
             VStack {
                 List {
@@ -39,36 +40,23 @@ struct SettingsView: View {
                         .listRowBackground(Color.clear)
 
                     displaySection
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
 
                     otherSection
                         .listRowSeparator(.automatic)
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
                 }
                 .listStyle(.insetGrouped)
                 .scrollContentBackground(.hidden)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
             }
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label("Back", systemImage: "chevron.backward")
-                    }
-                }
-            }
-            .gesture(DragGesture().onEnded({
-                if $0.translation.width > 100 {
-                    dismiss()
-                }
-            }))
         }
     }
 
     var displaySection: some View {
-        Section(header: Text("Display").font(.system(size: 20, weight: .bold, design: .rounded))) {
+        @Bindable var globalSettings = globalSettings
+        return Section(header: Text("Display").font(.system(size: 20, weight: .bold, design: .rounded))) {
             Picker("Units", selection: $globalSettings.selectedUnit) {
                 ForEach(MeasurementUnit.allCases, id: \.self) {
                     Text($0.rawValue)
@@ -86,7 +74,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.segmented)
-            .background(Color.darkStart.opacity(0.3))
+            .background(Color.dashboardCard)
 
             switch obdService.connectionType {
             case .bluetooth:
@@ -147,5 +135,5 @@ struct RoundedRectangleStyle: ViewModifier {
 
 #Preview {
     SettingsView(isDemoMode: .constant(true))
-        .environmentObject(GlobalSettings())
+        .environment(GlobalSettings())
 }
