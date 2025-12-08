@@ -27,14 +27,18 @@ class DashboardViewModel {
     }
 
     func refreshData() async {
-        guard let obdService = obdService, obdService.connectionState == .connected else {
+        // Use .connectedToVehicle based on ConnectionStatusView.swift
+        guard let obdService = obdService, obdService.connectionState == .connectedToVehicle else {
             return
         }
 
+        // TODO: Enable real data fetching when SwiftOBD2 API is confirmed.
+        // The following code is commented out because 'startScan' and 'OBDCommand'
+        // usage matched a different version of the library and caused compilation errors.
+
+        /*
         // Fetch Fuel Level
         do {
-            // Attempting to fetch Fuel Level
-            // Note: If 'fuelLevel' is not found, try 'OBDCommand.mode1(.fuelLevel)' depending on library version.
              let fuel = try await obdService.startScan(commands: [.fuelLevel])
              if let fuelMeas = fuel.first(where: { $0.command == .fuelLevel }) {
                  self.fuelLevel = String(format: "%.0f%%", fuelMeas.value)
@@ -42,12 +46,10 @@ class DashboardViewModel {
              }
         } catch {
             print("Error fetching fuel: \(error)")
-            // self.fuelLevel = "--" // Keep previous value or reset
         }
 
         // Fetch Battery Voltage
         do {
-            // Note: If 'controlModuleVoltage' is not found, try 'OBDCommand.mode1(.controlModuleVoltage)'
             let voltage = try await obdService.startScan(commands: [.controlModuleVoltage])
             if let voltMeas = voltage.first(where: { $0.command == .controlModuleVoltage }) {
                 self.batteryVoltage = String(format: "%.1f V", voltMeas.value)
@@ -55,7 +57,9 @@ class DashboardViewModel {
             }
         } catch {
             print("Error fetching voltage: \(error)")
-            // self.batteryVoltage = "--"
         }
+        */
+
+        print("DashboardViewModel: Real data fetching is currently disabled pending API verification.")
     }
 }
