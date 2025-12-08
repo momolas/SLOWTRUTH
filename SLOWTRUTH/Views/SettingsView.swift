@@ -51,20 +51,6 @@ struct SettingsView: View {
                 .foregroundColor(.white)
             }
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label("Back", systemImage: "chevron.backward")
-                    }
-                }
-            }
-            .gesture(DragGesture().onEnded({
-                if $0.translation.width > 100 {
-                    dismiss()
-                }
-            }))
         }
     }
 

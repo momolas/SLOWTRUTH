@@ -331,16 +331,6 @@ struct VehicleDiagnosticsView: View {
             Text("Do not attempt to clear codes while the engine is running. Clearing codes while the engine is running can cause serious damage to your vehicle.")
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    withAnimation {
-                        dismiss()
-                    }
-                } label: {
-                    Label("Back", systemImage: "chevron.backward")
-                }
-            }
-
             ToolbarItem(placement: .secondaryAction) {
                 Button("Clear Codes", role: .destructive) {
                     clearCodeAlert = true
