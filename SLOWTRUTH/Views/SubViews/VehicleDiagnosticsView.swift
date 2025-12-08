@@ -119,38 +119,40 @@ struct VehicleDiagnosticsView: View {
         Task {
             do {
                 // 1. Init
-                await updateProgress(0.1)
+                updateProgress(0.1)
 
                 if isDemoMode {
                     for p in stride(from: 0.1, to: 1.0, by: 0.1) {
-                        try await Task.sleep(nanoseconds: 300_000_000)
+                        try await Task.sleep(for: .seconds(0.3))
                         if !requestingTroubleCodes { return }
-                        await updateProgress(p)
+                        updateProgress(p)
                     }
-                    await updateProgress(1.0)
+                    updateProgress(1.0)
                     requestingTroubleCodes = false
                     notificationFeedback.notificationOccurred(.success)
                     return
                 }
 
                 // 2. Real Scan
-                await updateProgress(0.2)
-                let statusResult = try await obd2Service.getStatus()
-                await updateProgress(0.4)
+                updateProgress(0.2)
+                // Assuming getStatus is synchronous based on error history
+                _ = try obd2Service.getStatus()
+                updateProgress(0.4)
 
                 // Check status
                 // ...
 
-                await updateProgress(0.6)
-                let codes = try await obd2Service.scanForTroubleCodes()
-                await updateProgress(0.9)
+                updateProgress(0.6)
+                // Assuming scanForTroubleCodes is synchronous
+                let codes = try obd2Service.scanForTroubleCodes()
+                updateProgress(0.9)
 
                 if var vehicle = garage.currentVehicle {
                     vehicle.troubleCodes = codes
                     garage.updateVehicle(vehicle)
                 }
 
-                await updateProgress(1.0)
+                updateProgress(1.0)
                 requestingTroubleCodes = false
                 notificationFeedback.notificationOccurred(.success)
 
