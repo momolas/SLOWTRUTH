@@ -16,12 +16,22 @@ struct MetricItem: Identifiable {
 }
 
 struct MetricsGrid: View {
-    let metrics: [MetricItem] = [
-        MetricItem(title: "Carburant", value: "80%", icon: "fuelpump.fill", valueColor: .gray),
-        MetricItem(title: "Pneus", value: "OK", icon: "exclamationmark.circle", valueColor: .dashboardAccentGreen),
-        MetricItem(title: "Batterie", value: "95%", icon: "battery.100", valueColor: .gray),
-        MetricItem(title: "Kilométrage", value: "123,456 km", icon: "gauge", valueColor: .gray)
-    ]
+    var fuelLevel: String
+    var batteryVoltage: String
+    var tireStatus: String = "Non dispo"
+    var mileage: String = "Non dispo"
+
+    var fuelColor: Color = .gray
+    var batteryColor: Color = .gray
+
+    var metrics: [MetricItem] {
+        [
+            MetricItem(title: "Carburant", value: fuelLevel, icon: "fuelpump.fill", valueColor: fuelColor),
+            MetricItem(title: "Pneus", value: tireStatus, icon: "exclamationmark.circle", valueColor: .gray),
+            MetricItem(title: "Batterie", value: batteryVoltage, icon: "battery.100", valueColor: batteryColor),
+            MetricItem(title: "Kilométrage", value: mileage, icon: "gauge", valueColor: .gray)
+        ]
+    }
 
     let columns = [
         GridItem(.flexible(), spacing: 15),
@@ -56,7 +66,7 @@ struct MetricsGrid: View {
 }
 
 #Preview {
-    MetricsGrid()
+    MetricsGrid(fuelLevel: "80%", batteryVoltage: "12.4 V")
         .padding()
         .background(Color.dashboardBackground)
 }
