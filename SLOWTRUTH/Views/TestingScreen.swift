@@ -27,7 +27,6 @@ struct TestingScreen: View {
 //    @State private var selectedPeripheral: Peripheral?
     @State private var command = ""
 
-    @EnvironmentObject var globalSettings: GlobalSettings
     @Environment(\.dismiss) var dismiss
 
     @EnvironmentObject var garage: Garage
@@ -454,7 +453,6 @@ struct TestMessageView: View {
 
 #Preview {
     TestingScreen()
-        .environmentObject(GlobalSettings())
         .environmentObject(OBDService())
         .environmentObject(Garage())
 }

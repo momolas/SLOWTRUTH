@@ -9,31 +9,45 @@ import SwiftUI
 
 enum TabBarItem: Hashable {
     case dashBoard
-    case features
+    case diagnostic
+    case history
+    case settings
 
     var iconName: String {
         switch self {
         case .dashBoard:
-            return "gauge.open.with.lines.needle.33percent"
-        case .features:
-            return "person"
+            return "square.grid.2x2.fill"
+        case .diagnostic:
+            return "wrench.and.screwdriver.fill"
+        case .history:
+            return "clock.arrow.circlepath"
+        case .settings:
+            return "gearshape.fill"
         }
     }
 
     var title: String {
         switch self {
         case .dashBoard:
-            return "Dashboard"
-        case .features:
-            return "Features"
+            return "Tableau de bord"
+        case .diagnostic:
+            return "Diagnostic"
+        case .history:
+            return "Historique"
+        case .settings:
+            return "Paramètres"
         }
     }
 
     var color: Color {
         switch self {
         case .dashBoard:
-            return Color.red
-        case .features:
+            return Color.blue
+        case .diagnostic:
+            return Color.blue
+        case .history:
+            return Color.blue
+        case .settings:
             return Color.blue
         }
     }

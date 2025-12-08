@@ -20,34 +20,9 @@ extension Logger {
     static let bleCom = Logger(subsystem: subsystem, category: "BLEComms")
 }
 
-class GlobalSettings: NSObject, ObservableObject {
-    @Published var statusMessage = ""
-    @Published var showAltText = false
-    @Published var connectionType: ConnectionType = .bluetooth {
-        didSet {
-            UserDefaults.standard.set(connectionType.rawValue, forKey: "connectionType")
-        }
-    }
-    @Published var selectedUnit: MeasurementUnit = .metric {
-        didSet {
-            UserDefaults.standard.set(selectedUnit.rawValue, forKey: "selectedUnit")
-        }
-    }
-
-    override init() {
-        super.init()
-        if let unit = UserDefaults.standard.string(forKey: "selectedUnit") {
-            selectedUnit = MeasurementUnit(rawValue: unit) ?? .metric
-        }
-        if let connection = UserDefaults.standard.string(forKey: "connectionType") {
-            connectionType = ConnectionType(rawValue: connection) ?? .bluetooth
-        }
-    }
-}
-
 @main
 struct SLOWTRUTHApp: App {
-    @StateObject var globalSettings = GlobalSettings()
+    @State var globalSettings = GlobalSettings()
     @StateObject var obdService = OBDService(connectionType: .bluetooth)
     @StateObject var garage = Garage()
 
@@ -59,7 +34,7 @@ struct SLOWTRUTHApp: App {
                 SplashScreenView(isActive: $SplashScreenIsActive)
             } else {
                 MainView()
-                    .environmentObject(globalSettings)
+                    .environment(globalSettings)
                     .environmentObject(garage)
                     .environmentObject(obdService)
             }

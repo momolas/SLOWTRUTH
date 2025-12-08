@@ -127,7 +127,6 @@ struct DiagnosticsScreen: View {
 }
 
 struct VehicleDiagnosticsView: View {
-    @EnvironmentObject var globalSettings: GlobalSettings
     @EnvironmentObject var garage: Garage
     @EnvironmentObject var obd2Service: OBDService
 
@@ -332,16 +331,6 @@ struct VehicleDiagnosticsView: View {
             Text("Do not attempt to clear codes while the engine is running. Clearing codes while the engine is running can cause serious damage to your vehicle.")
         }
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    withAnimation {
-                        dismiss()
-                    }
-                } label: {
-                    Label("Back", systemImage: "chevron.backward")
-                }
-            }
-
             ToolbarItem(placement: .secondaryAction) {
                 Button("Clear Codes", role: .destructive) {
                     clearCodeAlert = true
@@ -373,7 +362,6 @@ struct VehicleDiagnosticsView: View {
 #Preview {
     NavigationStack {
         VehicleDiagnosticsView(isDemoMode: .constant(false))
-            .environmentObject(GlobalSettings())
             .environmentObject(Garage())
     }
 }
