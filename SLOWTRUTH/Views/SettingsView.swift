@@ -40,15 +40,15 @@ struct SettingsView: View {
                         .listRowBackground(Color.clear)
 
                     displaySection
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
 
                     otherSection
                         .listRowSeparator(.automatic)
-                        .listRowBackground(Color.darkStart.opacity(0.3))
+                        .listRowBackground(Color.dashboardCard)
                 }
                 .listStyle(.insetGrouped)
                 .scrollContentBackground(.hidden)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
             }
             .navigationBarBackButtonHidden(true)
         }
@@ -74,7 +74,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.segmented)
-            .background(Color.darkStart.opacity(0.3))
+            .background(Color.dashboardCard)
 
             switch obdService.connectionType {
             case .bluetooth:

@@ -37,10 +37,10 @@ struct ConnectionStatusView: View {
                 if !isLoading {
                     Text("START")
                         .font(.system(size: 13, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .transition(.opacity)
                     Ellipse()
-                        .foregroundColor(Color.clear)
+                        .foregroundStyle(Color.clear)
                         .frame(width: 50, height: 50)
                         .overlay(
                             Circle()

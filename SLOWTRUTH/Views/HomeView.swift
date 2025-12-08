@@ -16,7 +16,7 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            Color.dashboardBackground.ignoresSafeArea()
+            BackgroundView(isDemoMode: $isDemoMode)
 
             VStack(spacing: 0) {
                 DashboardHeaderView {

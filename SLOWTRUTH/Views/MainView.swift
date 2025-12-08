@@ -33,7 +33,7 @@ struct MainView: View {
             .tag(TabBarItem.diagnostic)
 
             NavigationStack {
-                LogsView()
+                LogsView(isDemoMode: $isDemoMode)
             }
             .tabItem {
                 Label(TabBarItem.history.title, systemImage: TabBarItem.history.iconName)

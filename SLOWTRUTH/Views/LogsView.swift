@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct LogsView: View {
+    @Binding var isDemoMode: Bool
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            BackgroundView(isDemoMode: $isDemoMode)
+
+            VStack {
+                Text("Historique")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+                    .padding()
+
+                Spacer()
+
+                Image(systemName: "doc.text.magnifyingglass")
+                    .font(.system(size: 60))
+                    .foregroundStyle(.gray)
+                    .padding()
+
+                Text("Aucun historique disponible")
+                    .font(.headline)
+                    .foregroundStyle(.gray)
+
+                Spacer()
+            }
+        }
     }
 }
 
 #Preview {
-    LogsView()
+    LogsView(isDemoMode: .constant(false))
 }
