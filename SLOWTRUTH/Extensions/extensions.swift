@@ -63,6 +63,10 @@ extension Color {
 
     static let darkStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
     static let darkEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)
+
+    static let dashboardBackground = Color(red: 12/255, green: 18/255, blue: 26/255)
+    static let dashboardCard = Color(red: 23/255, green: 30/255, blue: 39/255)
+    static let dashboardAccentGreen = Color(red: 46/255, green: 204/255, blue: 113/255)
 }
 
 extension String {

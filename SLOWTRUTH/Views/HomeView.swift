@@ -12,81 +12,37 @@ struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var isDemoMode: Bool
     @Binding var statusMessage: String?
+    @State private var showConnectionSheet = false
 
     var body: some View {
         ZStack {
             BackgroundView(isDemoMode: $isDemoMode)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        SectionView(title: "Diagnostics",
-                                    subtitle: "Read Vehicle Health",
-                                    iconName: "wrench.and.screwdriver",
-                                    destination: VehicleDiagnosticsView(isDemoMode: $isDemoMode)
-                        )
 
-                        SectionView(title: "Logs",
-                                    subtitle: "View Logs",
-                                    iconName: "flowchart",
-                                    destination: LogsView())
-                    }
-                    .padding(20)
-                    .padding(.bottom, 20)
-
-                    Divider().background(Color.white).padding(.horizontal, 10)
-                    NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
-                        SettingsAboutSectionView(title: "Garage", iconName: "car.circle", iconColor: .blue.opacity(0.6))
-                    }
-
-                    NavigationLink {
-                        SettingsView(isDemoMode: $isDemoMode)
-                    } label: {
-                        SettingsAboutSectionView(title: "Settings", iconName: "gear", iconColor: .green.opacity(0.6))
-                    }
-
-                    NavigationLink {
-                        TestingScreen()
-                    } label: {
-                        SettingsAboutSectionView(title: "Testing Hub", iconName: "gear", iconColor: .green.opacity(0.6))
-                    }
+            VStack(spacing: 0) {
+                DashboardHeaderView {
+                    showConnectionSheet.toggle()
                 }
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                HStack {
-                    Text("Powered by SLOWTRUTH")
-                        .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(5)
+
+                ScrollView {
+                    VStack(spacing: 20) {
+                        NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
+                            VehicleStatusCard()
+                        }
+                        .buttonStyle(.plain)
+                        MetricsGrid()
+                        AlertsSection()
+                        MaintenanceSection()
+                        LastDiagnosticCard()
+                    }
+                    .padding()
                 }
             }
         }
-    }
-}
-
-struct SettingsAboutSectionView: View {
-    let title: String
-    let iconName: String
-    let iconColor: Color
-
-    var body: some View {
-        HStack {
-            Image(systemName: iconName)
-                .font(.system(size: 30, weight: .bold))
-                .foregroundColor(iconColor)
-
-            Text(title)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.white)
-
-            Spacer()
-
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .bold))
-                .foregroundColor(.white)
-
+        .sheet(isPresented: $showConnectionSheet) {
+            ConnectionStatusView(statusMessage: $statusMessage)
+                .presentationDetents([.fraction(0.4), .medium])
+                .presentationDragIndicator(.visible)
         }
-        .frame(maxWidth: .infinity, maxHeight: 400, alignment: .leading)
-        .padding(.horizontal, 22)
     }
 }
 

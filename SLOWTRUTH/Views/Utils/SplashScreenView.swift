@@ -31,16 +31,16 @@ struct SplashScreenView: View {
                 VStack {
                     ZStack {
                         VStack(spacing: 40) {
-                            Text("SwiftOBD2")
+                            Text("SLOWTRUTH")
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .multilineTextAlignment(.center)
 
                             Text("Give us a star on GitHub")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .multilineTextAlignment(.center)
                         }
                         .opacity(opacity)
@@ -76,7 +76,7 @@ struct SplashScreenView: View {
                 }
             }
             .preferredColorScheme(.dark)
-//            .background(LinearGradient(.darkStart, .darkEnd))
+            .background(Color.dashboardBackground)
     }
 }
 
