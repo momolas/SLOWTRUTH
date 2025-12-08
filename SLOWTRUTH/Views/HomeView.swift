@@ -14,6 +14,7 @@ struct HomeView: View {
 
     @Binding var isDemoMode: Bool
     @Binding var statusMessage: String?
+    @State private var showConnectionSheet = false
 
     @State private var dashboardVM = DashboardViewModel()
     @State private var showConnectionSheet = false
