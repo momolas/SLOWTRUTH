@@ -68,11 +68,10 @@ struct SplashScreenView: View {
                     }
                 }
             }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    withAnimation {
-                        self.isActive = false
-                    }
+            .task {
+                try? await Task.sleep(for: .seconds(2))
+                withAnimation {
+                    self.isActive = false
                 }
             }
             .preferredColorScheme(.dark)
