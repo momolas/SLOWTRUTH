@@ -9,6 +9,7 @@ import Foundation
 import Observation
 import SwiftOBD2
 
+@MainActor
 @Observable
 class GlobalSettings {
     var statusMessage = ""

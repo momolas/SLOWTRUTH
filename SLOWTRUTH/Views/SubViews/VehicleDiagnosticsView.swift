@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftOBD2
 
 struct VehicleDiagnosticsView: View {
-    @EnvironmentObject var garage: Garage
-    @EnvironmentObject var obd2Service: OBDService
+    @Environment(Garage.self) var garage
+    @Environment(OBDService.self) var obd2Service
 
     @Binding var isDemoMode: Bool
 
@@ -178,7 +178,7 @@ struct VehicleDiagnosticsView: View {
 #Preview {
     NavigationStack {
         VehicleDiagnosticsView(isDemoMode: .constant(true))
-            .environmentObject(Garage())
-            .environmentObject(OBDService())
+            .environment(Garage())
+            .environment(OBDService())
     }
 }

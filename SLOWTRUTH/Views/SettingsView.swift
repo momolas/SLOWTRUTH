@@ -25,7 +25,7 @@ class SettingsViewModel: ObservableObject {
 struct SettingsView: View {
     @Environment(GlobalSettings.self) var globalSettings
 
-    @EnvironmentObject var obdService: OBDService
+    @Environment(OBDService.self) var obdService
     @Environment(\.dismiss) var dismiss
 
     @Binding var isDemoMode: Bool
@@ -67,7 +67,8 @@ struct SettingsView: View {
     }
 
     var connectionSection: some View {
-        Section(header: Text("Connection").font(.system(size: 20, weight: .bold, design: .rounded))) {
+        @Bindable var obdService = obdService
+        return Section(header: Text("Connection").font(.system(size: 20, weight: .bold, design: .rounded))) {
             Picker("Connection Type", selection: $obdService.connectionType) {
                 ForEach(ConnectionType.allCases, id: \.self) {
                     Text($0.rawValue)
@@ -136,4 +137,5 @@ struct RoundedRectangleStyle: ViewModifier {
 #Preview {
     SettingsView(isDemoMode: .constant(true))
         .environment(GlobalSettings())
+        .environment(OBDService())
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftOBD2
 
 struct HomeView: View {
-    @EnvironmentObject var obdService: OBDService
+    @Environment(OBDService.self) var obdService
     @Environment(\.colorScheme) var colorScheme
 
     @Binding var isDemoMode: Bool
@@ -30,7 +30,11 @@ struct HomeView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
-                            VehicleStatusCard()
+                            VehicleStatusCard(
+                                title: isDemoMode ? "Mode Démo" : dashboardVM.statusTitle,
+                                message: isDemoMode ? "Simulation active" : dashboardVM.statusMessage,
+                                iconColor: isDemoMode ? .blue : dashboardVM.statusColor
+                            )
                         }
                         .buttonStyle(.plain)
 
@@ -73,7 +77,7 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView(isDemoMode: .constant(true), statusMessage: .constant(nil))
-            .environmentObject(OBDService())
-            .environmentObject(Garage())
+            .environment(OBDService())
+            .environment(Garage())
     }
 }
