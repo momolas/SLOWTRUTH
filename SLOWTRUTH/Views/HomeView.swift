@@ -65,7 +65,7 @@ struct HomeView: View {
             }
         }
         .onChange(of: obdService.connectionState, initial: false) { oldState, newState in
-            if newState == .connectedToVehicle && !isDemoMode {
+            if newState == ConnectionState.connectedToVehicle && !isDemoMode {
                 Task {
                     await dashboardVM.refreshData()
                 }
