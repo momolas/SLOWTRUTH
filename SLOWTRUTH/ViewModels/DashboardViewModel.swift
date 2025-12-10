@@ -16,6 +16,10 @@ class DashboardViewModel {
     var tireStatus: String = "Non dispo"
     var mileage: String = "Non dispo"
 
+    var statusTitle: String = "Tout va bien"
+    var statusMessage: String = "Aucun problème détecté."
+    var statusColor: Color = .dashboardAccentGreen
+
     // Status colors
     var fuelColor: Color = .gray
     var batteryColor: Color = .gray
@@ -33,33 +37,17 @@ class DashboardViewModel {
         }
 
         // TODO: Enable real data fetching when SwiftOBD2 API is confirmed.
-        // The following code is commented out because 'startScan' and 'OBDCommand'
-        // usage matched a different version of the library and caused compilation errors.
-
-        /*
-        // Fetch Fuel Level
-        do {
-             let fuel = try await obdService.startScan(commands: [.fuelLevel])
-             if let fuelMeas = fuel.first(where: { $0.command == .fuelLevel }) {
-                 self.fuelLevel = String(format: "%.0f%%", fuelMeas.value)
-                 self.fuelColor = fuelMeas.value < 20 ? .red : .dashboardAccentGreen
-             }
-        } catch {
-            print("Error fetching fuel: \(error)")
-        }
-
-        // Fetch Battery Voltage
-        do {
-            let voltage = try await obdService.startScan(commands: [.controlModuleVoltage])
-            if let voltMeas = voltage.first(where: { $0.command == .controlModuleVoltage }) {
-                self.batteryVoltage = String(format: "%.1f V", voltMeas.value)
-                self.batteryColor = voltMeas.value < 12.0 ? .red : .dashboardAccentGreen
-            }
-        } catch {
-            print("Error fetching voltage: \(error)")
-        }
-        */
+        // Currently disabling specific command requests to ensure compilation.
+        // Future implementation should use correct API to fetch Fuel Level and Battery Voltage.
 
         print("DashboardViewModel: Real data fetching is currently disabled pending API verification.")
+
+        // Example logic for status update based on connection
+        if obdService.connectionState == .connectedToVehicle {
+            // Placeholder: In a real app, we would analyze DTCs here
+            statusTitle = "Connecté"
+            statusMessage = "Prêt pour le diagnostic."
+            statusColor = .dashboardAccentGreen
+        }
     }
 }

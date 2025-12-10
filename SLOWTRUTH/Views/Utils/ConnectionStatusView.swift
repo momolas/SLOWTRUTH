@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftOBD2
 
 struct ConnectionStatusView: View {
-    @EnvironmentObject var obdService: OBDService
-    @EnvironmentObject var garage: Garage
+    @Environment(OBDService.self) var obdService
+    @Environment(Garage.self) var garage
     @Binding var statusMessage: String?
     @State var isLoading = false
     @State private var shouldGrow = false
@@ -105,10 +105,9 @@ struct ConnectionStatusView: View {
                     animateWhiteStreak()
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        self.statusMessage = nil
-                    }
+                try? await Task.sleep(for: .seconds(2.5))
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    self.statusMessage = nil
                 }
 
             } catch {
