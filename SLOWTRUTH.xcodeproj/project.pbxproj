@@ -34,7 +34,7 @@
 		CD79EFF42EE5C4E800FC31DD /* VehicleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF22EE5C4E800FC31DD /* VehicleCard.swift */; };
 		CD79EFF52EE5C4E800FC31DD /* EmptyGarageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF12EE5C4E800FC31DD /* EmptyGarageView.swift */; };
 		CD79EFF62EE5C4E800FC31DD /* VehicleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF32EE5C4E800FC31DD /* VehicleDetailView.swift */; };
-		CD81A8292EE9C04C00C6A899 /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = CD81A8282EE9C04C00C6A899 /* SwiftOBD2 */; };
+		CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */; };
 		CDFEF0A02EDF34B900CA9E6E /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF09D2EDF34B900CA9E6E /* TabBarItem.swift */; };
 		CDFEF0A42EDF351400CA9E6E /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF0A32EDF351400CA9E6E /* ConnectionStatusView.swift */; };
 		CDFEF0AB2EDF382B00CA9E6E /* Cars.json in Resources */ = {isa = PBXBuildFile; fileRef = CDFEF0A92EDF382B00CA9E6E /* Cars.json */; };
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD81A8292EE9C04C00C6A899 /* SwiftOBD2 in Frameworks */,
+				CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +234,7 @@
 			);
 			name = SLOWTRUTH;
 			packageProductDependencies = (
-				CD81A8282EE9C04C00C6A899 /* SwiftOBD2 */,
+				CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */,
 			);
 			productName = SwiftOBD2App;
 			productReference = 2FCE2FB79862C9EE008AC6D1 /* SLOWTRUTH.app */;
@@ -260,7 +260,7 @@
 			mainGroup = 063FC37E639A74526DC5194A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				CD81A8272EE9C04C00C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */,
+				CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -514,9 +514,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CD81A8272EE9C04C00C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
+		CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kkonteh97/SwiftOBD2.git";
+			repositoryURL = "https://github.com/momolas/Swift-OBD2.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -525,9 +525,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CD81A8282EE9C04C00C6A899 /* SwiftOBD2 */ = {
+		CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CD81A8272EE9C04C00C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */;
+			package = CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */;
 			productName = SwiftOBD2;
 		};
 /* End XCSwiftPackageProductDependency section */
