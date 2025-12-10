@@ -1,13 +1,13 @@
 {
-  "originHash" : "2500ddf300e2ae11fe2abb60d6696228738d2b033b86d28ac20b7d84f37bdc6e",
+  "originHash" : "3eb6ee33bad1ddde49e05384c511f9dde3db98c281d8fce0fdcdd117845ecccf",
   "pins" : [
     {
-      "identity" : "swiftobd2",
+      "identity" : "swift-obd2",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kkonteh97/SwiftOBD2.git",
+      "location" : "https://github.com/momolas/Swift-OBD2.git",
       "state" : {
         "branch" : "main",
-        "revision" : "fe6def4e8599671dfc1b9597dbcdbc6a7c078b96"
+        "revision" : "889a09d33e996a3780ef6f46a93d4f750a4ee635"
       }
     }
   ],

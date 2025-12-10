@@ -17,10 +17,6 @@ struct HomeView: View {
     @State private var showConnectionSheet = false
 
     @State private var dashboardVM = DashboardViewModel()
-    @State private var showConnectionSheet = false
-
-    @State private var dashboardVM = DashboardViewModel()
-    @State private var showConnectionSheet = false
 
     var body: some View {
         ZStack {
@@ -64,7 +60,7 @@ struct HomeView: View {
                 await dashboardVM.refreshData()
             }
         }
-        .onChange(of: obdService.connectionState) { newState in
+        .onChange(of: obdService.connectionState, initial: false) { oldState, newState in
             if newState == .connectedToVehicle && !isDemoMode {
                 Task {
                     await dashboardVM.refreshData()
