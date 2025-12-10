@@ -516,7 +516,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		CD81A8272EE9C04C00C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/momolas/Swift-OBD2.git";
+			repositoryURL = "https://github.com/kkonteh97/SwiftOBD2.git";
 			requirement = {
 				branch = main;
 				kind = branch;

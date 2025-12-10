@@ -30,7 +30,11 @@ struct HomeView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         NavigationLink(destination: GarageView(isDemoMode: $isDemoMode)) {
-                            VehicleStatusCard()
+                            VehicleStatusCard(
+                                title: isDemoMode ? "Mode Démo" : dashboardVM.statusTitle,
+                                message: isDemoMode ? "Simulation active" : dashboardVM.statusMessage,
+                                iconColor: isDemoMode ? .blue : dashboardVM.statusColor
+                            )
                         }
                         .buttonStyle(.plain)
 
@@ -61,7 +65,7 @@ struct HomeView: View {
             }
         }
         .onChange(of: obdService.connectionState, initial: false) { oldState, newState in
-            if newState == .connectedToVehicle && !isDemoMode {
+            if newState == ConnectionState.connectedToVehicle && !isDemoMode {
                 Task {
                     await dashboardVM.refreshData()
                 }
