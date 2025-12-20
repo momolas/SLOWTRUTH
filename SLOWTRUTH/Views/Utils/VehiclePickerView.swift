@@ -8,7 +8,9 @@
 import SwiftUI
 import SwiftOBD2
 
-class VehiclePickerViewModel: ObservableObject {
+@MainActor
+@Observable
+class VehiclePickerViewModel {
     var carData: [Manufacturer] = []
     let garage: Garage
 
@@ -34,7 +36,7 @@ class VehiclePickerViewModel: ObservableObject {
 }
 
 struct VehiclePickerView: View {
-    @ObservedObject var viewModel = VehiclePickerViewModel(garage: Garage())
+    @State var viewModel = VehiclePickerViewModel(garage: Garage())
     @State var selectedYear = -1
     @State var selectedModel = -1 {
         didSet {
@@ -108,8 +110,8 @@ struct VehiclePickerView: View {
                 Text("Add")
                     .padding()
                     .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .foregroundStyle(.white)
+                    .clipShape(.rect(cornerRadius: 10))
             }
         }
     }

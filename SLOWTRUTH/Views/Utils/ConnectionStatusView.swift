@@ -105,9 +105,11 @@ struct ConnectionStatusView: View {
                     animateWhiteStreak()
                 }
 
-                try? await Task.sleep(for: .seconds(2.5))
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    self.statusMessage = nil
+                Task {
+                    try? await Task.sleep(for: .seconds(2.5))
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.statusMessage = nil
+                    }
                 }
 
             } catch {
