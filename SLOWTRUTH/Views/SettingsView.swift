@@ -138,4 +138,5 @@ struct RoundedRectangleStyle: ViewModifier {
 #Preview {
     SettingsView(isDemoMode: .constant(true))
         .environment(GlobalSettings())
+        .environmentObject(OBDService())
 }

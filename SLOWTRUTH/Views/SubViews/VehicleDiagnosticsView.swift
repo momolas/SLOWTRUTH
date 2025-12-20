@@ -136,7 +136,7 @@ struct VehicleDiagnosticsView: View {
                 // 2. Real Scan
                 updateProgress(0.2)
                 // Assuming getStatus is synchronous based on error history
-                _ = try obd2Service.getStatus()
+				_ = try obd2Service.getStatus()
                 updateProgress(0.4)
 
                 // Check status
@@ -144,7 +144,7 @@ struct VehicleDiagnosticsView: View {
 
                 updateProgress(0.6)
                 // Assuming scanForTroubleCodes is synchronous
-                let codes = try obd2Service.scanForTroubleCodes()
+				let codes = try obd2Service.scanForTroubleCodes()
                 updateProgress(0.9)
 
                 if var vehicle = garage.currentVehicle {

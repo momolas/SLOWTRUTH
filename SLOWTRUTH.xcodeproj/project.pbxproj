@@ -29,16 +29,17 @@
 		CD31686F2EE6BF3B00E68396 /* VehicleStatusCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3168672EE6BF3B00E68396 /* VehicleStatusCard.swift */; };
 		CD3168712EE6C3B500E68396 /* DiagnosticComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3168702EE6C3B500E68396 /* DiagnosticComponents.swift */; };
 		CD3168732EE6D71F00E68396 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3168722EE6D71F00E68396 /* BackgroundView.swift */; };
+		CD3168772EE7698400E68396 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3168762EE7698400E68396 /* DashboardViewModel.swift */; };
 		CD79EFF02EE5C4D700FC31DD /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFEF2EE5C4D700FC31DD /* GlobalSettings.swift */; };
 		CD79EFF42EE5C4E800FC31DD /* VehicleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF22EE5C4E800FC31DD /* VehicleCard.swift */; };
 		CD79EFF52EE5C4E800FC31DD /* EmptyGarageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF12EE5C4E800FC31DD /* EmptyGarageView.swift */; };
 		CD79EFF62EE5C4E800FC31DD /* VehicleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF32EE5C4E800FC31DD /* VehicleDetailView.swift */; };
+		CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */; };
 		CDFEF0A02EDF34B900CA9E6E /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF09D2EDF34B900CA9E6E /* TabBarItem.swift */; };
 		CDFEF0A42EDF351400CA9E6E /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF0A32EDF351400CA9E6E /* ConnectionStatusView.swift */; };
 		CDFEF0AB2EDF382B00CA9E6E /* Cars.json in Resources */ = {isa = PBXBuildFile; fileRef = CDFEF0A92EDF382B00CA9E6E /* Cars.json */; };
 		CDFEF0AE2EDF390600CA9E6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDFEF0AD2EDF390600CA9E6E /* Assets.xcassets */; };
 		F16987E0F30D32A2EFFB15C2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F0B6A49F6C6B2BB921DC17 /* MainView.swift */; };
-		FFF395A03EA865386A353ADB /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = 2521AAAD36D60504F854B062 /* SwiftOBD2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		CD3168672EE6BF3B00E68396 /* VehicleStatusCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleStatusCard.swift; sourceTree = "<group>"; };
 		CD3168702EE6C3B500E68396 /* DiagnosticComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticComponents.swift; sourceTree = "<group>"; };
 		CD3168722EE6D71F00E68396 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		CD3168762EE7698400E68396 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		CD79EFEF2EE5C4D700FC31DD /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		CD79EFF12EE5C4E800FC31DD /* EmptyGarageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGarageView.swift; sourceTree = "<group>"; };
 		CD79EFF22EE5C4E800FC31DD /* VehicleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCard.swift; sourceTree = "<group>"; };
@@ -81,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFF395A03EA865386A353ADB /* SwiftOBD2 in Frameworks */,
+				CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +211,7 @@
 		F4C4BB32EC021303921D7BBE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CD3168762EE7698400E68396 /* DashboardViewModel.swift */,
 				CD79EFEF2EE5C4D700FC31DD /* GlobalSettings.swift */,
 			);
 			path = ViewModels;
@@ -231,7 +234,7 @@
 			);
 			name = SLOWTRUTH;
 			packageProductDependencies = (
-				2521AAAD36D60504F854B062 /* SwiftOBD2 */,
+				CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */,
 			);
 			productName = SwiftOBD2App;
 			productReference = 2FCE2FB79862C9EE008AC6D1 /* SLOWTRUTH.app */;
@@ -257,7 +260,7 @@
 			mainGroup = 063FC37E639A74526DC5194A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FB751EBA2D4A3F5573329A6B /* XCRemoteSwiftPackageReference "SwiftOBD2" */,
+				CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1DE5200027B21040837FC60 /* AboutView.swift in Sources */,
+				CD3168772EE7698400E68396 /* DashboardViewModel.swift in Sources */,
 				76ED592B6D13E3D630AB2BB6 /* AddVehicleView.swift in Sources */,
 				369F06C07C3FB42DEB9E36AC /* GarageView.swift in Sources */,
 				409981E43453749F7D91630E /* GaugeView.swift in Sources */,
@@ -510,7 +514,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FB751EBA2D4A3F5573329A6B /* XCRemoteSwiftPackageReference "SwiftOBD2" */ = {
+		CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kkonteh97/SwiftOBD2.git";
 			requirement = {
@@ -521,9 +525,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2521AAAD36D60504F854B062 /* SwiftOBD2 */ = {
+		CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FB751EBA2D4A3F5573329A6B /* XCRemoteSwiftPackageReference "SwiftOBD2" */;
+			package = CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */;
 			productName = SwiftOBD2;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -17,6 +17,10 @@ class DashboardViewModel {
     var tireStatus: String = "Non dispo"
     var mileage: String = "Non dispo"
 
+    var statusTitle: String = "Tout va bien"
+    var statusMessage: String = "Aucun problème détecté."
+    var statusColor: Color = .dashboardAccentGreen
+
     // Status colors
     var fuelColor: Color = .gray
     var batteryColor: Color = .gray

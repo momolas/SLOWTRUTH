@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct Manufacturer: Codable, Hashable {
     let make: String
@@ -136,7 +137,7 @@ struct AutoAddVehicleView: View {
         isLoading = true
         notificationFeedback.prepare()
 
-        Task {
+        Task { @MainActor in
             do {
                 guard let vinInfo = try await connect() else {
                     statusMessage = "Vehicle Not Detected"
@@ -305,5 +306,6 @@ struct ConfirmView: View {
     AddVehicleView(isPresented: .constant(true))
             .environment(GlobalSettings())
             .environmentObject(Garage())
+            .environmentObject(OBDService())
 
 }
