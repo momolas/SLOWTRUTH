@@ -8,7 +8,9 @@
 import SwiftUI
 import SwiftOBD2
 
-class SettingsViewModel: ObservableObject {
+@MainActor
+@Observable
+class SettingsViewModel {
 
     var garage: Garage
 

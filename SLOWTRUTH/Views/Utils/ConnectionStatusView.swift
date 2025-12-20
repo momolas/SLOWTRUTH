@@ -105,7 +105,8 @@ struct ConnectionStatusView: View {
                     animateWhiteStreak()
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                Task {
+                    try? await Task.sleep(for: .seconds(2.5))
                     withAnimation(.easeInOut(duration: 0.5)) {
                         self.statusMessage = nil
                     }

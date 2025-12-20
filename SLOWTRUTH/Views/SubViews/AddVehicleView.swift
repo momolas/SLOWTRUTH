@@ -18,9 +18,11 @@ struct Model: Codable, Hashable {
     let years: [String]
 }
 
-class AddVehicleViewModel: ObservableObject {
-    @Published var carData: [Manufacturer]?
-    @Published var showError = false
+@MainActor
+@Observable
+class AddVehicleViewModel {
+    var carData: [Manufacturer]?
+    var showError = false
 
     init() {
         do {
@@ -137,28 +139,20 @@ struct AutoAddVehicleView: View {
         Task {
             do {
                 guard let vinInfo = try await connect() else {
-                    DispatchQueue.main.async {
-                        statusMessage = "Vehicle Not Detected"
-                        isLoading = false
-                    }
+                    statusMessage = "Vehicle Not Detected"
+                    isLoading = false
                     return
                 }
-                DispatchQueue.main.async {
-                    statusMessage = "Found Vehicle"
-                    notificationFeedback.notificationOccurred(.success)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    statusMessage = "Make: \(vinInfo.Make)\nModel: \(vinInfo.Model)\nYear: \(vinInfo.ModelYear)"
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    isLoading = false
-                    isPresented = false
-                }
+                statusMessage = "Found Vehicle"
+                notificationFeedback.notificationOccurred(.success)
+                try await Task.sleep(for: .seconds(1))
+                statusMessage = "Make: \(vinInfo.Make)\nModel: \(vinInfo.Model)\nYear: \(vinInfo.ModelYear)"
+                try await Task.sleep(for: .seconds(2))
+                isLoading = false
+                isPresented = false
             } catch {
-                DispatchQueue.main.async {
-                    statusMessage = "Error: \(error.localizedDescription)"
-                    isLoading = false
-                }
+                statusMessage = "Error: \(error.localizedDescription)"
+                isLoading = false
             }
         }
     }
@@ -179,7 +173,7 @@ struct AutoAddVehicleView: View {
 }
 
 struct ManuallyAddVehicleView: View {
-    @ObservedObject var viewModel = AddVehicleViewModel()
+    @State var viewModel = AddVehicleViewModel()
     @Binding var isPresented: Bool
 
     var body: some View {
