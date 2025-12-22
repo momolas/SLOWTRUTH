@@ -35,7 +35,9 @@ class AddVehicleViewModel {
     }
 
     func fetchData() throws {
-        let url = Bundle.main.url(forResource: "Cars", withExtension: "json")!
+        guard let url = Bundle.main.url(forResource: "Cars", withExtension: "json") else {
+            throw URLError(.fileDoesNotExist)
+        }
         let data = try Data(contentsOf: url)
         self.carData = try JSONDecoder().decode([Manufacturer].self, from: data)
     }
