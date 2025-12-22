@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct SettingsView: View {
     @Environment(GlobalSettings.self) var globalSettings

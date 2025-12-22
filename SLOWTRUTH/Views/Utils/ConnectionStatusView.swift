@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct ConnectionStatusView: View {
     @EnvironmentObject var obdService: OBDService
