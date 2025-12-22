@@ -19,6 +19,7 @@ struct Model: Codable, Hashable {
     let years: [String]
 }
 
+@MainActor
 @Observable
 class AddVehicleViewModel {
     var carData: [Manufacturer]?
@@ -147,11 +148,9 @@ struct AutoAddVehicleView: View {
                 }
                 statusMessage = "Found Vehicle"
                 notificationFeedback.notificationOccurred(.success)
-
-                try? await Task.sleep(for: .seconds(1))
+                try await Task.sleep(for: .seconds(1))
                 statusMessage = "Make: \(vinInfo.Make)\nModel: \(vinInfo.Model)\nYear: \(vinInfo.ModelYear)"
-
-                try? await Task.sleep(for: .seconds(3))
+                try await Task.sleep(for: .seconds(2))
                 isLoading = false
                 isPresented = false
             } catch {

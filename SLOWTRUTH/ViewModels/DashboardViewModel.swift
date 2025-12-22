@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import SwiftOBD2
 
 @MainActor
@@ -30,24 +31,34 @@ class DashboardViewModel {
         self.obdService = obdService
     }
 
-    func refreshData() async {
-        // Use .connectedToVehicle based on ConnectionStatusView.swift
+    private var cancellables = Set<AnyCancellable>()
+
+    func refreshData() {
         guard let obdService = obdService, obdService.connectionState == .connectedToVehicle else {
             return
         }
 
-        // TODO: Enable real data fetching when SwiftOBD2 API is confirmed.
-        // Currently disabling specific command requests to ensure compilation.
-        // Future implementation should use correct API to fetch Fuel Level and Battery Voltage.
+        cancellables.removeAll()
 
-        print("DashboardViewModel: Real data fetching is currently disabled pending API verification.")
+        obdService.startContinuousUpdates([.mode1(.fuelLevel), .mode1(.controlModuleVoltage)])
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("Error fetching data: \(error)")
+                }
+            }, receiveValue: { [weak self] measurements in
+                guard let self = self else { return }
 
-        // Example logic for status update based on connection
-        if obdService.connectionState == .connectedToVehicle {
-            // Placeholder: In a real app, we would analyze DTCs here
-            statusTitle = "Connecté"
-            statusMessage = "Prêt pour le diagnostic."
-            statusColor = .dashboardAccentGreen
-        }
+                if let fuelMeas = measurements[.mode1(.fuelLevel)] {
+                    self.fuelLevel = fuelMeas.value.formatted(.number.precision(.fractionLength(0))) + "%"
+                    self.fuelColor = fuelMeas.value < 20 ? .red : .dashboardAccentGreen
+                }
+
+                if let voltMeas = measurements[.mode1(.controlModuleVoltage)] {
+                    self.batteryVoltage = voltMeas.value.formatted(.number.precision(.fractionLength(1))) + " V"
+                    self.batteryColor = voltMeas.value < 12.0 ? .red : .dashboardAccentGreen
+                }
+            })
+            .store(in: &cancellables)
     }
 }

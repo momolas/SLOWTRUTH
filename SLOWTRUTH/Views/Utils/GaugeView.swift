@@ -67,7 +67,7 @@ struct CustomGaugeView: View {
         let rotation = startAngle + stepper * Double(tick)
         return Text(text)
                     .font(.system(size: 16, design: .rounded))
-                    .foregroundColor(colorMix(percent: Int(percent)))
+                    .foregroundStyle(colorMix(percent: Int(percent)))
                     .rotationEffect(.init(degrees: -1 * rotation), anchor: .center)
                     .offset(x: -60, y: 0)
                     .rotationEffect(Angle.degrees(rotation))
@@ -101,7 +101,7 @@ struct CustomGaugeView: View {
 
             Text(String(format: "%.3f", $value.wrappedValue))
                 .font(.system(size: 40, design: .rounded))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
 
             ForEach(0..<Int(tickCount)*2 + 1, id: \.self) { tick in
                 self.tick(at: tick, totalTicks: Int(self.tickCount)*2)
