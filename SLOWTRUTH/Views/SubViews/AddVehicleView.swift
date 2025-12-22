@@ -74,8 +74,8 @@ struct AddVehicleView: View {
 }
 
 struct AutoAddVehicleView: View {
-    @EnvironmentObject var garage: Garage
-    @EnvironmentObject var obdService: OBDService
+    @Environment(Garage.self) var garage
+    @Environment(OBDService.self) var obdService
     @Binding var isPresented: Bool
     @State var statusMessage: String = ""
     @State var isLoading: Bool = false
@@ -268,7 +268,7 @@ struct YearView: View {
 }
 
 struct ConfirmView: View {
-    @EnvironmentObject var garage: Garage
+    @Environment(Garage.self) var garage
     @Binding var isPresented: Bool
 
     let carModel: Model
@@ -307,7 +307,6 @@ struct ConfirmView: View {
 #Preview {
     AddVehicleView(isPresented: .constant(true))
             .environment(GlobalSettings())
-            .environmentObject(Garage())
-            .environmentObject(OBDService())
-
+            .environment(Garage())
+            .environment(OBDService())
 }

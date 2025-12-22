@@ -10,8 +10,8 @@ import SwiftOBD2
 import Observation
 
 struct VehicleDiagnosticsView: View {
-    @EnvironmentObject var garage: Garage
-    @EnvironmentObject var obd2Service: OBDService
+    @Environment(Garage.self) var garage
+    @Environment(OBDService.self) var obd2Service
 
     @Binding var isDemoMode: Bool
 
@@ -137,7 +137,7 @@ struct VehicleDiagnosticsView: View {
                 // 2. Real Scan
                 updateProgress(0.2)
                 // Assuming getStatus is synchronous based on error history
-				_ = try obd2Service.getStatus()
+				_ = try await obd2Service.getStatus()
                 updateProgress(0.4)
 
                 // Check status
@@ -145,7 +145,7 @@ struct VehicleDiagnosticsView: View {
 
                 updateProgress(0.6)
                 // Assuming scanForTroubleCodes is synchronous
-				let codes = try obd2Service.scanForTroubleCodes()
+				let codes = try await obd2Service.scanForTroubleCodes()
                 updateProgress(0.9)
 
                 if var vehicle = garage.currentVehicle {
@@ -179,7 +179,7 @@ struct VehicleDiagnosticsView: View {
 #Preview {
     NavigationStack {
         VehicleDiagnosticsView(isDemoMode: .constant(true))
-            .environmentObject(Garage())
-            .environmentObject(OBDService())
+            .environment(Garage())
+            .environment(OBDService())
     }
 }

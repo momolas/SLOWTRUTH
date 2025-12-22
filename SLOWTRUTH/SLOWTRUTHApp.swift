@@ -23,8 +23,8 @@ extension Logger {
 @main
 struct SLOWTRUTHApp: App {
     @State var globalSettings = GlobalSettings()
-    @StateObject var obdService = OBDService(connectionType: .bluetooth)
-    @StateObject var garage = Garage()
+    @State var obdService = OBDService(connectionType: .bluetooth)
+    @State var garage = Garage()
 
     @State var SplashScreenIsActive: Bool = true
 
@@ -35,8 +35,8 @@ struct SLOWTRUTHApp: App {
             } else {
                 MainView()
                     .environment(globalSettings)
-                    .environmentObject(garage)
-                    .environmentObject(obdService)
+                    .environment(garage)
+                    .environment(obdService)
             }
         }
     }

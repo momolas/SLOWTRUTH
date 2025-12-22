@@ -10,8 +10,8 @@ import SwiftOBD2
 import Observation
 
 struct ConnectionStatusView: View {
-    @EnvironmentObject var obdService: OBDService
-    @EnvironmentObject var garage: Garage
+    @Environment(OBDService.self) var obdService
+    @Environment(Garage.self) var garage
     @Binding var statusMessage: String?
     @State var isLoading = false
     @State private var shouldGrow = false

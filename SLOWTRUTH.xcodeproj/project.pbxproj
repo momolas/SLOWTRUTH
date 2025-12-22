@@ -15,7 +15,6 @@
 		6E65CE9D28B251484699D374 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8301EAC0E119D7AAA1842B48 /* extensions.swift */; };
 		76ED592B6D13E3D630AB2BB6 /* AddVehicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC176FB1A3634B365FB90808 /* AddVehicleView.swift */; };
 		7D7D910600EF83BAF1C73904 /* VehicleDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A64B8593C521124CFB1195 /* VehicleDiagnosticsView.swift */; };
-		81CEEEC8FEF02FB912B63B17 /* VehiclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D90217DAC1409A566FF95 /* VehiclePickerView.swift */; };
 		8A44B373EF7F010672FD696C /* LogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDF56CA58BAC2FD8333F150 /* LogsView.swift */; };
 		979C0C87532EEBDAFD4A4A53 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C628ED0E5E8509D8B5700A7A /* SectionView.swift */; };
 		B1DE5200027B21040837FC60 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDC7366365C5281754989E /* AboutView.swift */; };
@@ -34,7 +33,7 @@
 		CD79EFF42EE5C4E800FC31DD /* VehicleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF22EE5C4E800FC31DD /* VehicleCard.swift */; };
 		CD79EFF52EE5C4E800FC31DD /* EmptyGarageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF12EE5C4E800FC31DD /* EmptyGarageView.swift */; };
 		CD79EFF62EE5C4E800FC31DD /* VehicleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79EFF32EE5C4E800FC31DD /* VehicleDetailView.swift */; };
-		CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */; };
+		CDC7C2C72EF9A82700E56C66 /* SwiftOBD2 in Frameworks */ = {isa = PBXBuildFile; productRef = CDC7C2C62EF9A82700E56C66 /* SwiftOBD2 */; };
 		CDFEF0A02EDF34B900CA9E6E /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF09D2EDF34B900CA9E6E /* TabBarItem.swift */; };
 		CDFEF0A42EDF351400CA9E6E /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFEF0A32EDF351400CA9E6E /* ConnectionStatusView.swift */; };
 		CDFEF0AB2EDF382B00CA9E6E /* Cars.json in Resources */ = {isa = PBXBuildFile; fileRef = CDFEF0A92EDF382B00CA9E6E /* Cars.json */; };
@@ -44,7 +43,6 @@
 
 /* Begin PBXFileReference section */
 		0B63BE8EEBEDEF21AD7B3399 /* GarageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageView.swift; sourceTree = "<group>"; };
-		0E5D90217DAC1409A566FF95 /* VehiclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePickerView.swift; sourceTree = "<group>"; };
 		2FCE2FB79862C9EE008AC6D1 /* SLOWTRUTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLOWTRUTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EDDC7366365C5281754989E /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		40F342A055AEF7EC5B044C36 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -83,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD81A82C2EE9D7E200C6A899 /* SwiftOBD2 in Frameworks */,
+				CDC7C2C72EF9A82700E56C66 /* SwiftOBD2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +116,6 @@
 				42CB99F9B1E6297A7A250C12 /* GaugeView.swift */,
 				C628ED0E5E8509D8B5700A7A /* SectionView.swift */,
 				83AE51E73195D4FD60653307 /* SplashScreenView.swift */,
-				0E5D90217DAC1409A566FF95 /* VehiclePickerView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -234,7 +231,7 @@
 			);
 			name = SLOWTRUTH;
 			packageProductDependencies = (
-				CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */,
+				CDC7C2C62EF9A82700E56C66 /* SwiftOBD2 */,
 			);
 			productName = SwiftOBD2App;
 			productReference = 2FCE2FB79862C9EE008AC6D1 /* SLOWTRUTH.app */;
@@ -260,7 +257,7 @@
 			mainGroup = 063FC37E639A74526DC5194A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */,
+				CDC7C2C52EF9A82700E56C66 /* XCRemoteSwiftPackageReference "Swift-OBD2" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,7 +305,6 @@
 				2481CBD95AFB30664EB00C75 /* SplashScreenView.swift in Sources */,
 				314296832BA58992AD7D8F95 /* SLOWTRUTHApp.swift in Sources */,
 				7D7D910600EF83BAF1C73904 /* VehicleDiagnosticsView.swift in Sources */,
-				81CEEEC8FEF02FB912B63B17 /* VehiclePickerView.swift in Sources */,
 				6E65CE9D28B251484699D374 /* extensions.swift in Sources */,
 				CD31686A2EE6BF3B00E68396 /* DashboardHeaderView.swift in Sources */,
 				CD31686B2EE6BF3B00E68396 /* AlertsSection.swift in Sources */,
@@ -514,9 +510,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
+		CDC7C2C52EF9A82700E56C66 /* XCRemoteSwiftPackageReference "Swift-OBD2" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kkonteh97/SwiftOBD2.git";
+			repositoryURL = "https://github.com/momolas/Swift-OBD2.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -525,9 +521,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CD81A82B2EE9D7E200C6A899 /* SwiftOBD2 */ = {
+		CDC7C2C62EF9A82700E56C66 /* SwiftOBD2 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CD81A82A2EE9D7E200C6A899 /* XCRemoteSwiftPackageReference "Swift-OBD2" */;
+			package = CDC7C2C52EF9A82700E56C66 /* XCRemoteSwiftPackageReference "Swift-OBD2" */;
 			productName = SwiftOBD2;
 		};
 /* End XCSwiftPackageProductDependency section */

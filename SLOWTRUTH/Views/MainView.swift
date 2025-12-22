@@ -55,6 +55,6 @@ struct MainView: View {
 #Preview {
     MainView()
         .environment(GlobalSettings())
-        .environmentObject(Garage())
-        .environmentObject(OBDService())
+        .environment(Garage())
+        .environment(OBDService())
 }

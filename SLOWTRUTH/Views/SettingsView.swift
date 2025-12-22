@@ -11,8 +11,7 @@ import Observation
 
 struct SettingsView: View {
     @Environment(GlobalSettings.self) var globalSettings
-
-    @EnvironmentObject var obdService: OBDService
+    @Environment(OBDService.self) var obdService
     @Environment(\.dismiss) var dismiss
 
     @Binding var isDemoMode: Bool
@@ -123,5 +122,5 @@ struct RoundedRectangleStyle: ViewModifier {
 #Preview {
     SettingsView(isDemoMode: .constant(true))
         .environment(GlobalSettings())
-        .environmentObject(OBDService())
+        .environment(OBDService())
 }
