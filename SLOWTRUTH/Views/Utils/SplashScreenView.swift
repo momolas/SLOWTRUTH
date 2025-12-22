@@ -33,7 +33,7 @@ struct SplashScreenView: View {
                         VStack(spacing: 40) {
                             Text("SLOWTRUTH")
                                 .font(.title)
-                                .fontWeight(.bold)
+                                .bold()
                                 .foregroundStyle(.white)
                                 .multilineTextAlignment(.center)
 

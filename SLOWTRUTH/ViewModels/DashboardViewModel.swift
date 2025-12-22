@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 @MainActor
 @Observable
@@ -30,24 +31,31 @@ class DashboardViewModel {
         self.obdService = obdService
     }
 
-    func refreshData() async {
-        // Use .connectedToVehicle based on ConnectionStatusView.swift
+    func refreshData() {
         guard let obdService = obdService, obdService.connectionState == .connectedToVehicle else {
             return
         }
 
-        // TODO: Enable real data fetching when SwiftOBD2 API is confirmed.
-        // Currently disabling specific command requests to ensure compilation.
-        // Future implementation should use correct API to fetch Fuel Level and Battery Voltage.
+        statusTitle = "Connecté"
+        statusMessage = "Prêt pour le diagnostic."
+        statusColor = .dashboardAccentGreen
 
-        print("DashboardViewModel: Real data fetching is currently disabled pending API verification.")
+        Task {
+            // Request Fuel Level and Control Module Voltage
+            await obdService.addPID(.mode1(.fuelLevel))
+            await obdService.addPID(.mode1(.controlModuleVoltage))
 
-        // Example logic for status update based on connection
-        if obdService.connectionState == .connectedToVehicle {
-            // Placeholder: In a real app, we would analyze DTCs here
-            statusTitle = "Connecté"
-            statusMessage = "Prêt pour le diagnostic."
-            statusColor = .dashboardAccentGreen
+            for await measurements in obdService.startContinuousUpdates() {
+                if let fuel = measurements[.mode1(.fuelLevel)]?.value {
+                    self.fuelLevel = String(format: "%.0f%%", fuel)
+                    self.fuelColor = .green
+                }
+
+                if let voltage = measurements[.mode1(.controlModuleVoltage)]?.value {
+                    self.batteryVoltage = String(format: "%.1f V", voltage)
+                    self.batteryColor = .green
+                }
+            }
         }
     }
 }

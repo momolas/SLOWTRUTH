@@ -58,7 +58,7 @@ struct DiagnosticResultRow: View {
 
                 Image(systemName: isError ? "exclamationmark" : "checkmark")
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundStyle(isError ? Color.orange : Color.green)
             }
 

@@ -15,7 +15,7 @@ struct DashboardHeaderView: View {
             Spacer()
             Text("Tableau de bord")
                 .font(.headline)
-                .fontWeight(.bold)
+                .bold()
                 .foregroundStyle(.white)
             Spacer()
             Button(action: onProfileTap) {
