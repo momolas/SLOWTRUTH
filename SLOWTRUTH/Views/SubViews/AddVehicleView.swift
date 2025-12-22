@@ -121,11 +121,9 @@ struct AutoAddVehicleView: View {
                 }
                 statusMessage = "Found Vehicle"
                 notificationFeedback.notificationOccurred(.success)
-
-                try? await Task.sleep(for: .seconds(1))
+                try await Task.sleep(for: .seconds(1))
                 statusMessage = "Make: \(vinInfo.Make)\nModel: \(vinInfo.Model)\nYear: \(vinInfo.ModelYear)"
-
-                try? await Task.sleep(for: .seconds(3))
+                try await Task.sleep(for: .seconds(2))
                 isLoading = false
                 isPresented = false
             } catch {
@@ -317,5 +315,4 @@ struct ConfirmView: View {
             .environment(GlobalSettings())
             .environment(Garage())
             .environment(OBDService())
-
 }
