@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct GarageView: View {
     @Environment(Garage.self) var garage

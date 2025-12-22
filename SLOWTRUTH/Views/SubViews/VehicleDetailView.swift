@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct VehicleDetailView: View {
     @Environment(Garage.self) var garage
@@ -31,7 +32,7 @@ struct VehicleDetailView: View {
 
                         Text("\(vehicle.year) \(vehicle.make) \(vehicle.model)")
                             .font(.title)
-                            .fontWeight(.bold)
+                            .bold()
                             .foregroundStyle(.white)
                     }
                     .padding()
