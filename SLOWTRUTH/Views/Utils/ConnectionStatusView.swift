@@ -48,7 +48,7 @@ struct ConnectionStatusView: View {
             do {
                 self.statusMessage = "Initializing OBD Adapter (BLE)"
 
-                vehicle.obdinfo = try await obdService.startConnection(preferedProtocol: .protocol6)
+                vehicle.obdinfo = try await obdService.startConnection(preferredProtocol: .protocol6)
                 vehicle.obdinfo?.supportedPIDs = await obdService.getSupportedPIDs()
 
                 garage.updateVehicle(vehicle)

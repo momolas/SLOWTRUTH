@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SwiftOBD2
+import Observation
 
 @MainActor
 @Observable
@@ -31,34 +32,31 @@ class DashboardViewModel {
         self.obdService = obdService
     }
 
-    private var cancellables = Set<AnyCancellable>()
-
     func refreshData() {
         guard let obdService = obdService, obdService.connectionState == .connectedToVehicle else {
             return
         }
 
-        cancellables.removeAll()
+        statusTitle = "Connecté"
+        statusMessage = "Prêt pour le diagnostic."
+        statusColor = .dashboardAccentGreen
 
-        obdService.startContinuousUpdates([.mode1(.fuelLevel), .mode1(.controlModuleVoltage)])
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    print("Error fetching data: \(error)")
-                }
-            }, receiveValue: { [weak self] measurements in
-                guard let self = self else { return }
+        Task {
+            // Request Fuel Level and Control Module Voltage
+            await obdService.addPID(.mode1(.fuelLevel))
+            await obdService.addPID(.mode1(.controlModuleVoltage))
 
-                if let fuelMeas = measurements[.mode1(.fuelLevel)] {
-                    self.fuelLevel = fuelMeas.value.formatted(.number.precision(.fractionLength(0))) + "%"
-                    self.fuelColor = fuelMeas.value < 20 ? .red : .dashboardAccentGreen
+            for await measurements in obdService.startContinuousUpdates() {
+                if let fuel = measurements[.mode1(.fuelLevel)]?.value {
+                    self.fuelLevel = String(format: "%.0f%%", fuel)
+                    self.fuelColor = .green
                 }
 
-                if let voltMeas = measurements[.mode1(.controlModuleVoltage)] {
-                    self.batteryVoltage = voltMeas.value.formatted(.number.precision(.fractionLength(1))) + " V"
-                    self.batteryColor = voltMeas.value < 12.0 ? .red : .dashboardAccentGreen
+                if let voltage = measurements[.mode1(.controlModuleVoltage)]?.value {
+                    self.batteryVoltage = String(format: "%.1f V", voltage)
+                    self.batteryColor = .green
                 }
-            })
-            .store(in: &cancellables)
+            }
+        }
     }
 }
