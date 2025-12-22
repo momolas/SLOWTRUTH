@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct VehicleDiagnosticsView: View {
     @Environment(Garage.self) var garage
@@ -36,7 +37,7 @@ struct VehicleDiagnosticsView: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Résultats")
                                 .font(.title2)
-                                .fontWeight(.bold)
+                                .bold()
                                 .foregroundStyle(.white)
 
                             if let currentVehicle = garage.currentVehicle {

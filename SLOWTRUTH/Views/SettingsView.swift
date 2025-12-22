@@ -7,20 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
-
-class SettingsViewModel: ObservableObject {
-
-    var garage: Garage
-
-    init(_ garage: Garage) {
-        self.garage = garage
-    }
-
-    func switchToDemoMode(_ isDemoMode: Bool) {
-        garage.switchToDemoMode(isDemoMode)
-//        obdService.switchToDemoMode(isDemoMode)
-    }
-}
+import Observation
 
 struct SettingsView: View {
     @Environment(GlobalSettings.self) var globalSettings

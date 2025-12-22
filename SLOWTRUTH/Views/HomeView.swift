@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct HomeView: View {
     @Environment(OBDService.self) var obdService

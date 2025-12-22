@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftOBD2
+import Observation
 
 struct ConnectionStatusView: View {
     @Environment(OBDService.self) var obdService
@@ -136,7 +137,7 @@ struct ConnectionStatusView: View {
                 }
             }
             .font(.system(size: 22, weight: .bold, design: .rounded))
-            .fontWeight(.bold)
+            .bold()
             .padding(10)
             .frame(maxWidth: .infinity)
             .background(content: {
