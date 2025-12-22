@@ -21,7 +21,7 @@ struct VehicleCard: View {
 
                 Text(vehicle.model)
                     .font(.title2)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundStyle(.white)
 
                 Text(vehicle.year)

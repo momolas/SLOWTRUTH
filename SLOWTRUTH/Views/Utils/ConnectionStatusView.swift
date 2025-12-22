@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftOBD2
 
 struct ConnectionStatusView: View {
-    @Environment(OBDService.self) var obdService
-    @Environment(Garage.self) var garage
+    @EnvironmentObject var obdService: OBDService
+    @EnvironmentObject var garage: Garage
     @Binding var statusMessage: String?
     @State var isLoading = false
     @State private var shouldGrow = false
@@ -136,7 +136,7 @@ struct ConnectionStatusView: View {
                 }
             }
             .font(.system(size: 22, weight: .bold, design: .rounded))
-            .fontWeight(.bold)
+            .bold()
             .padding(10)
             .frame(maxWidth: .infinity)
             .background(content: {

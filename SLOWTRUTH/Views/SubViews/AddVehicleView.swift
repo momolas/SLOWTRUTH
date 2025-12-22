@@ -19,6 +19,7 @@ struct Model: Codable, Hashable {
     let years: [String]
 }
 
+@MainActor
 @Observable
 class AddVehicleViewModel {
     var carData: [Manufacturer]?
@@ -34,7 +35,9 @@ class AddVehicleViewModel {
     }
 
     func fetchData() throws {
-        let url = Bundle.main.url(forResource: "Cars", withExtension: "json")!
+        guard let url = Bundle.main.url(forResource: "Cars", withExtension: "json") else {
+            throw URLError(.fileDoesNotExist)
+        }
         let data = try Data(contentsOf: url)
         self.carData = try JSONDecoder().decode([Manufacturer].self, from: data)
     }
@@ -71,8 +74,8 @@ struct AddVehicleView: View {
 }
 
 struct AutoAddVehicleView: View {
-    @Environment(Garage.self) var garage
-    @Environment(OBDService.self) var obdService
+    @EnvironmentObject var garage: Garage
+    @EnvironmentObject var obdService: OBDService
     @Binding var isPresented: Bool
     @State var statusMessage: String = ""
     @State var isLoading: Bool = false
@@ -267,7 +270,7 @@ struct YearView: View {
 }
 
 struct ConfirmView: View {
-    @Environment(Garage.self) var garage
+    @EnvironmentObject var garage: Garage
     @Binding var isPresented: Bool
 
     let carModel: Model
@@ -306,7 +309,7 @@ struct ConfirmView: View {
 #Preview {
     AddVehicleView(isPresented: .constant(true))
             .environment(GlobalSettings())
-            .environment(Garage())
-            .environment(OBDService())
+            .environmentObject(Garage())
+            .environmentObject(OBDService())
 
 }

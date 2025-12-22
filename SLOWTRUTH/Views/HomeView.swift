@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftOBD2
 
 struct HomeView: View {
-    @Environment(OBDService.self) var obdService
+    @EnvironmentObject var obdService: OBDService
     @Environment(\.colorScheme) var colorScheme
 
     @Binding var isDemoMode: Bool
@@ -77,7 +77,7 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView(isDemoMode: .constant(true), statusMessage: .constant(nil))
-            .environment(OBDService())
-            .environment(Garage())
+            .environmentObject(OBDService())
+            .environmentObject(Garage())
     }
 }
