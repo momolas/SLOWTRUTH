@@ -10,7 +10,7 @@ import SwiftOBD2
 import Observation
 
 struct GarageView: View {
-    @Environment(Garage.self) var garage
+    @EnvironmentObject var garage: Garage
 
     @Environment(\.dismiss) var dismiss
     @Binding var isDemoMode: Bool
@@ -69,6 +69,6 @@ struct GarageView: View {
         GarageView(isDemoMode: .constant(false))
         .background(LinearGradient(.darkStart, .darkEnd))
         .environment(GlobalSettings())
-        .environment(Garage())
+        .environmentObject(Garage())
     }
 }

@@ -12,7 +12,7 @@ import Observation
 struct SettingsView: View {
     @Environment(GlobalSettings.self) var globalSettings
 
-    @Environment(OBDService.self) var obdService
+    @EnvironmentObject var obdService: OBDService
     @Environment(\.dismiss) var dismiss
 
     @Binding var isDemoMode: Bool
@@ -54,8 +54,7 @@ struct SettingsView: View {
     }
 
     var connectionSection: some View {
-        @Bindable var obdService = obdService
-        return Section(header: Text("Connection").font(.system(size: 20, weight: .bold, design: .rounded))) {
+        Section(header: Text("Connection").font(.system(size: 20, weight: .bold, design: .rounded))) {
             Picker("Connection Type", selection: $obdService.connectionType) {
                 ForEach(ConnectionType.allCases, id: \.self) {
                     Text($0.rawValue)
@@ -124,5 +123,5 @@ struct RoundedRectangleStyle: ViewModifier {
 #Preview {
     SettingsView(isDemoMode: .constant(true))
         .environment(GlobalSettings())
-        .environment(OBDService())
+        .environmentObject(OBDService())
 }

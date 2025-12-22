@@ -10,7 +10,7 @@ import SwiftOBD2
 import Observation
 
 struct VehicleDetailView: View {
-    @Environment(Garage.self) var garage
+    @EnvironmentObject var garage: Garage
     @Environment(\.dismiss) var dismiss
     let vehicle: Vehicle
 

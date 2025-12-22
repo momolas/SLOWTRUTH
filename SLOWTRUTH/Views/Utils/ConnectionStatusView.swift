@@ -10,8 +10,8 @@ import SwiftOBD2
 import Observation
 
 struct ConnectionStatusView: View {
-    @Environment(OBDService.self) var obdService
-    @Environment(Garage.self) var garage
+    @EnvironmentObject var obdService: OBDService
+    @EnvironmentObject var garage: Garage
     @Binding var statusMessage: String?
     @State var isLoading = false
     @State private var shouldGrow = false
@@ -19,7 +19,7 @@ struct ConnectionStatusView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            if obdService.connectionState != .connectedToVehicle {
+            if obdService.connectionState != ConnectionState.connectedToVehicle {
                 connectButton
             }
 
@@ -106,9 +106,11 @@ struct ConnectionStatusView: View {
                     animateWhiteStreak()
                 }
 
-                try? await Task.sleep(for: .seconds(2.5))
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    self.statusMessage = nil
+                Task {
+                    try? await Task.sleep(for: .seconds(2.5))
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.statusMessage = nil
+                    }
                 }
 
             } catch {
@@ -179,8 +181,8 @@ struct ConnectionStatusView: View {
                 HStack {
                     Text("ECU connection")
                     Spacer()
-                    Text(obdService.connectionState == .connectedToVehicle ? "Connected" : "disconnected")
-                        .foregroundStyle(obdService.connectionState == .connectedToVehicle ? .green : .red)
+                    Text(obdService.connectionState == ConnectionState.connectedToVehicle ? "Connected" : "disconnected")
+                        .foregroundStyle(obdService.connectionState == ConnectionState.connectedToVehicle ? .green : .red)
                 }
             }
             .font(.system(size: 14, weight: .semibold))
