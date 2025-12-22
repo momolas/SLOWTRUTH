@@ -136,7 +136,7 @@ struct ConnectionStatusView: View {
                 }
             }
             .font(.system(size: 22, weight: .bold, design: .rounded))
-            .fontWeight(.bold)
+            .bold()
             .padding(10)
             .frame(maxWidth: .infinity)
             .background(content: {
