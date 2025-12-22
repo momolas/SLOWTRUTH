@@ -95,44 +95,17 @@ struct AutoAddVehicleView: View {
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.gray)
 
-                detectButton
+                DetectButton(statusMessage: $statusMessage, isLoading: $isLoading) {
+                    impactFeedback.prepare()
+                    impactFeedback.impactOccurred()
+                    detectVehicle()
+                }
             }
             .padding(30)
             .background(Color.dashboardCard, in: .rect(cornerRadius: 20))
             .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
             .padding(.bottom, 40)
         }
-    }
-
-    var detectButton: some View {
-        VStack {
-            Text(statusMessage)
-                .lineLimit(3)
-                .multilineTextAlignment(.leading)
-                .font(.system(size: 18, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.dashboardAccentGreen)
-                .padding(.bottom)
-
-            if isLoading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(2.0, anchor: .center)
-            } else {
-                Button {
-                    impactFeedback.prepare()
-                    impactFeedback.impactOccurred()
-                    detectVehicle()
-                } label: {
-                    Text("Detect Vehicle")
-                        .padding(10)
-                        .foregroundStyle(.white)
-                }
-                .buttonStyle(.bordered)
-                .tint(Color.dashboardCard)
-                .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
-            }
-        }
-        .frame(maxHeight: 200)
     }
 
     func detectVehicle() {
@@ -174,6 +147,39 @@ struct AutoAddVehicleView: View {
         }
 
         return vinInfo
+    }
+}
+
+struct DetectButton: View {
+    @Binding var statusMessage: String
+    @Binding var isLoading: Bool
+    let action: () -> Void
+
+    var body: some View {
+        VStack {
+            Text(statusMessage)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
+                .font(.system(size: 18, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.dashboardAccentGreen)
+                .padding(.bottom)
+
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(2.0, anchor: .center)
+            } else {
+                Button(action: action) {
+                    Text("Detect Vehicle")
+                        .padding(10)
+                        .foregroundStyle(.white)
+                }
+                .buttonStyle(.bordered)
+                .tint(Color.dashboardCard)
+                .shadow(color: .black.opacity(0.5), radius: 10, x: 0, y: 5)
+            }
+        }
+        .frame(maxHeight: 200)
     }
 }
 

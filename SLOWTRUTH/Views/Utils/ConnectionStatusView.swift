@@ -20,61 +20,16 @@ struct ConnectionStatusView: View {
     var body: some View {
         VStack(spacing: 20) {
             if obdService.connectionState != .connectedToVehicle {
-                connectButton
+                ConnectButton(isLoading: $isLoading, shouldGrow: $shouldGrow) {
+                    connectButtonAction()
+                }
             }
 
-            carInfoView
+            CarInfoView(whiteStreakProgress: whiteStreakProgress, statusMessage: $statusMessage)
                 .padding(.horizontal)
         }
         .padding()
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
-    }
-
-    private var connectButton: some View {
-        Button(action: {
-            connectButtonAction()
-        }) {
-            ZStack {
-                if !isLoading {
-                    Text("START")
-                        .font(.system(size: 13, weight: .bold, design: .rounded))
-                        .foregroundStyle(.white)
-                        .transition(.opacity)
-                    Ellipse()
-                        .foregroundStyle(Color.clear)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white, lineWidth: 2)
-                                .scaleEffect(shouldGrow ? 1.5 : 1.0)
-                                .opacity(shouldGrow ? 0.0 : 1.0)
-                        )
-                        .onAppear {
-                            withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
-                                self.shouldGrow = true
-                            }
-                        }
-                } else {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                }
-            }
-        }
-        .buttonStyle(CustomButtonStyle())
-        .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: 5)
-    }
-
-    struct CustomButtonStyle: ButtonStyle {
-        func makeBody(configuration: Configuration) -> some View {
-            configuration.label
-                .frame(width: 80, height: 80)
-                .background(content: {
-                    Circle()
-                        .fill(Color(red: 39/255, green: 110/255, blue: 241/255))
-                })
-                .scaleEffect(configuration.isPressed ? 1.5 : 1)
-                .animation(.easeOut(duration: 0.3), value: configuration.isPressed)
-        }
     }
 
     @MainActor
@@ -126,8 +81,66 @@ struct ConnectionStatusView: View {
             self.whiteStreakProgress = 1.0 // Animate to 100%
         }
     }
+}
 
-    private var carInfoView: some View {
+struct ConnectButton: View {
+    @Binding var isLoading: Bool
+    @Binding var shouldGrow: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                if !isLoading {
+                    Text("START")
+                        .font(.system(size: 13, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .transition(.opacity)
+                    Ellipse()
+                        .foregroundStyle(Color.clear)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white, lineWidth: 2)
+                                .scaleEffect(shouldGrow ? 1.5 : 1.0)
+                                .opacity(shouldGrow ? 0.0 : 1.0)
+                        )
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
+                                self.shouldGrow = true
+                            }
+                        }
+                } else {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                }
+            }
+        }
+        .buttonStyle(CustomButtonStyle())
+        .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: 5)
+    }
+}
+
+struct CustomButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(width: 80, height: 80)
+            .background(content: {
+                Circle()
+                    .fill(Color(red: 39/255, green: 110/255, blue: 241/255))
+            })
+            .scaleEffect(configuration.isPressed ? 1.5 : 1)
+            .animation(.easeOut(duration: 0.3), value: configuration.isPressed)
+    }
+}
+
+struct CarInfoView: View {
+    @Environment(OBDService.self) var obdService
+    @Environment(Garage.self) var garage
+    let whiteStreakProgress: CGFloat
+    @Binding var statusMessage: String?
+
+    var body: some View {
         VStack {
             VStack(alignment: .center) {
                 if let statusMessage = statusMessage {
