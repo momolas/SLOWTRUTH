@@ -17,7 +17,7 @@ struct LogsView: View {
             VStack {
                 Text("Historique")
                     .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundStyle(.white)
                     .padding()
 

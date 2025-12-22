@@ -31,7 +31,7 @@ struct VehicleDetailView: View {
 
                         Text("\(vehicle.year) \(vehicle.make) \(vehicle.model)")
                             .font(.title)
-                            .fontWeight(.bold)
+                            .bold()
                             .foregroundStyle(.white)
                     }
                     .padding()

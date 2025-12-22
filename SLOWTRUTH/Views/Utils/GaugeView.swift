@@ -99,7 +99,7 @@ struct CustomGaugeView: View {
 //                .shadow(color: Color.darkStart, radius: 10)
 //                .blur(radius: 1.0)
 
-            Text(String(format: "%.3f", $value.wrappedValue))
+            Text($value.wrappedValue, format: .number.precision(.fractionLength(3)))
                 .font(.system(size: 40, design: .rounded))
                 .foregroundStyle(.white)
 
@@ -125,8 +125,6 @@ struct CustomGaugeView: View {
     }
 }
 
-struct GuageView_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomGaugeView(coveredRadius: 250, maxValue: 80, steperSplit: 10, value: .constant(20))
-    }
+#Preview {
+    CustomGaugeView(coveredRadius: 250, maxValue: 80, steperSplit: 10, value: .constant(20))
 }

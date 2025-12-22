@@ -21,7 +21,7 @@ struct VehicleStatusCard: View {
             VStack(spacing: 5) {
                 Text(title)
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundStyle(.white)
 
                 Text(message)
