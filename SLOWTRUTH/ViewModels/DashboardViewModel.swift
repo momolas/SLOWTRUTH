@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import SwiftOBD2
 import Observation
 

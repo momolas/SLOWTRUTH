@@ -11,7 +11,6 @@ import Observation
 
 struct GarageView: View {
     @Environment(Garage.self) var garage
-
     @Environment(\.dismiss) var dismiss
     @Binding var isDemoMode: Bool
 
@@ -67,8 +66,8 @@ struct GarageView: View {
 #Preview {
     NavigationStack {
         GarageView(isDemoMode: .constant(false))
-        .background(LinearGradient(.darkStart, .darkEnd))
-        .environment(GlobalSettings())
-        .environment(Garage())
+			.background(LinearGradient(.darkStart, .darkEnd))
+			.environment(GlobalSettings())
+			.environment(Garage())
     }
 }

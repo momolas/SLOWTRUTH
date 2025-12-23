@@ -121,11 +121,9 @@ struct AutoAddVehicleView: View {
                 }
                 statusMessage = "Found Vehicle"
                 notificationFeedback.notificationOccurred(.success)
-
-                try? await Task.sleep(for: .seconds(1))
+                try await Task.sleep(for: .seconds(1))
                 statusMessage = "Make: \(vinInfo.Make)\nModel: \(vinInfo.Model)\nYear: \(vinInfo.ModelYear)"
-
-                try? await Task.sleep(for: .seconds(3))
+                try await Task.sleep(for: .seconds(2))
                 isLoading = false
                 isPresented = false
             } catch {
@@ -317,7 +315,26 @@ struct ConfirmView: View {
             .environment(GlobalSettings())
             .environment(Garage())
             .environment(OBDService())
+}
 
+struct VINResponse: Codable {
+    let Results: [VINInfo]
+}
+
+struct VINInfo: Codable {
+    let Make: String
+    let Model: String
+    let ModelYear: String
+}
+
+func getVINInfo(vin: String) async throws -> VINResponse {
+    let urlString = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/\(vin)?format=json"
+    guard let url = URL(string: urlString) else {
+        throw URLError(.badURL)
+    }
+
+    let (data, _) = try await URLSession.shared.data(from: url)
+    return try JSONDecoder().decode(VINResponse.self, from: data)
 }
 
 struct VINResponse: Codable {
